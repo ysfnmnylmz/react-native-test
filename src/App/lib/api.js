@@ -2,10 +2,12 @@
 import axios from "axios";
 // import {asyncLocalStorage} from '../lib/helpers';
 
-const BASE_URL ='https://api.footystats.org/';
+const BASE_URL ='http://192.168.1.43:7362/api/';
+const source = axios.CancelToken.source();
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
-  timeout: 20000
+  timeout: 20000,
+  cancelToken: source.token
 });
 
 
@@ -41,6 +43,7 @@ axiosInstance.interceptors.request.use(
   },
   err => Promise.reject(err)
 );
+
 
 axiosInstance.interceptors.response.use(
   response => {
