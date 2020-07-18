@@ -11,7 +11,7 @@ import { getData } from '../store/actions/GetLeagues';
 const Stack = createStackNavigator();
 function Main(props) {
     const [loading, setLoading] = useState(false);
-    const [data, setData] = useState([]);
+    const [data, setData] = useState({});
     const [matches, setMatches] = useState([]);
     const [teams, setTeams] = useState([]);
     const fetchData = async () => {
@@ -23,8 +23,10 @@ function Main(props) {
     };
 
     useEffect(() => {
-        fetchData();
-    })
+        // fetchData();
+        props.getData();
+        setData(props.leaguesReducer)
+    },[data])
     return (
         <NavigationContainer>
             <Stack.Navigator>
@@ -35,7 +37,7 @@ function Main(props) {
     )
 };
 
-const mapStateToProps = (state) => ({ Leagues: state.leagues });
+const mapStateToProps = (state) => ({ leaguesReducer: state.leagues });
 
 const mapDispatchToProps = { getData };
 
