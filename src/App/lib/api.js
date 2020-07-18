@@ -1,62 +1,40 @@
-// import store from "../store";
-import axios from "axios";
-// import {asyncLocalStorage} from '../lib/helpers';
+import axios from 'axios';
+import UtilityFunctions from './UtilityFunctions';
 
-const BASE_URL ='http://192.168.1.43:7362/api/';
-const source = axios.CancelToken.source();
+const BASE_URL = 'http://192.168.1.43:7362/api/';
+
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
-  timeout: 20000,
-  cancelToken: source.token
+  timeout: 30000,
 });
 
-
-axiosInstance.defaults.headers.common["Content-Type"] = "application/json";
-
-// async function injectToken(config, token) {
-//   if (config.noAuth) {
-//     delete config.headers['Authorization'];
-//     return config;
-//   }
-
-//   if (!token) {
-//     token = store.getState().loginReducer.token;
-//     if (!token)
-//       token = store.getState().token;
-
-//     if (!token)
-//       token = await asyncLocalStorage.getItem('token');
-//   }
-
-//   if (token) {
-//     config.headers.Authorization = `Token ${token}`;
-//     axios.defaults.headers.common['Authorization'] = `Token ${token}`;
-//   }
-//   return config;
-
-// }
+axiosInstance.defaults.headers.common['Content-Type'] = 'application/json';
 
 axiosInstance.interceptors.request.use(
-  async config => {
-    console.log("REQUEST : ", config);
-    // return await injectToken(config);
+  (config) => {
+    UtilityFunctions.consoleFunc('REQUEST', '#FFAA00', config);
+    // const {token} = store.getState().loginReducer;
+    // if (token !== '' && token !== null && config != null) {
+    //   config.headers.Authorization = `Token ${token}`;
+    // }
+    return config;
   },
-  err => Promise.reject(err)
+  (err) => Promise.reject(err),
 );
 
-
 axiosInstance.interceptors.response.use(
-  response => {
-    console.log("RESPONSE : ", response.data);
-    return response.data;
+  (response) => {
+    UtilityFunctions.consoleFunc('RESPONSE', '#59FF00 ', response);
+    return response;
   },
-  error => {
-    if (!error.response) {
-      console.log('NETWORK ERROR');
-    }
-    console.log("response error: ", error.response ? error.response : error);
+  (error) => {
+    UtilityFunctions.consoleFunc(
+      'RESPONSE_ERROR',
+      '#E50808',
+      error.response ? error.response : error,
+    );
     return Promise.reject(error);
-  }
+  },
 );
 
 export default axiosInstance;
