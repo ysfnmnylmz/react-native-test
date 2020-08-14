@@ -25,12 +25,12 @@ function TeamTable({ team, league }) {
                         <Thumbnail source={{ uri: `${team.image}` }} />
                         <Body>
                             <Text>{team.name}</Text>
-                            <Text note>{`Sıralama: ${team.table_position}/${league.data.clubNum}`}</Text>
-                            <Text note>{league.data.name}</Text>
+                            <Text note>{`Sıralama: ${team.table_position}/${league.clubNum}`}</Text>
+                            <Text note>{league.name}</Text>
                         </Body>
                     </Left>
                     <Right>
-                        <Thumbnail source={{ uri: `${league.data.image}` }} />
+                        <Thumbnail source={{ uri: `${league.image}` }} />
                     </Right>
                 </CardItem>
                 <CardItem cardBody>

@@ -20,7 +20,7 @@ function DetailsPage({ route, navigation }) {
     away = matchTeamsData[0]
     home = matchTeamsData[1]
   }
-  fullMatches.data.map((preMatch) => {
+  fullMatches.map((preMatch) => {
     if (preMatch.status === 'complete') {
       if (preMatch.game_week > (home.stats.seasonMatchesPlayed_overall - 5)) {
         preMatch.homeID === home.id && homePrematches.push(preMatch);

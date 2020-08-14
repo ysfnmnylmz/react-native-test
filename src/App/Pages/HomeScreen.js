@@ -8,7 +8,7 @@ const draw = require('../../../assets/icons/draw.png');
 const scored = require('../../../assets/icons/scored.png');
 const conceced = require('../../../assets/icons/conceced.png');
 
-function HomeScreen({ data, teams, matches, navigation }) {
+function HomeScreen({ data, teams, matches, route, navigation }) {
 
     const LeftActions = (match, matchTeams) => {
         let home = {};

@@ -28,7 +28,7 @@ function SummaryStats({ home, away, leagueData }) {
                             <Body>
                                 <View style={{ width: '100%', height: '100%', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                     <Text style={{ fontSize: 22, fontWeight:'bold' }}>{`${String((home.stats.seasonOver05Percentage_overall + away.stats.seasonOver05Percentage_overall)/2).substring(0,2)}%`}</Text>
-                                    <Text style={{ fontSize: 12 }}>{`League: ${leagueData.data.seasonOver05Percentage_overall}%`}</Text>
+                                    <Text style={{ fontSize: 12 }}>{`League: ${leagueData.seasonOver05Percentage_overall}%`}</Text>
                                 </View>
                             </Body>
                         </CardItem>
@@ -41,7 +41,7 @@ function SummaryStats({ home, away, leagueData }) {
                             <Body>
                                 <View style={{ width: '100%', height: '100%', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                     <Text style={{ fontSize: 22, fontWeight:'bold' }}>{`${String((home.stats.seasonOver15Percentage_overall + away.stats.seasonOver15Percentage_overall)/2).substring(0,2)}%`}</Text>
-                                    <Text style={{ fontSize: 12 }}>{`League: ${leagueData.data.seasonOver15Percentage_overall}%`}</Text>
+                                    <Text style={{ fontSize: 12 }}>{`League: ${leagueData.seasonOver15Percentage_overall}%`}</Text>
                                 </View>
                             </Body>
                         </CardItem>
@@ -54,7 +54,7 @@ function SummaryStats({ home, away, leagueData }) {
                             <Body>
                                 <View style={{ width: '100%', height: '100%', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                     <Text style={{ fontSize: 22, fontWeight:'bold' }}>{`${String((home.stats.seasonOver25Percentage_overall + away.stats.seasonOver25Percentage_overall)/2).substring(0,2)}%`}</Text>
-                                    <Text style={{ fontSize: 12 }}>{`League: ${leagueData.data.seasonOver25Percentage_overall}%`}</Text>
+                                    <Text style={{ fontSize: 12 }}>{`League: ${leagueData.seasonOver25Percentage_overall}%`}</Text>
                                 </View>
                             </Body>
                         </CardItem>
@@ -67,7 +67,7 @@ function SummaryStats({ home, away, leagueData }) {
                             <Body>
                                 <View style={{ width: '100%', height: '100%', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                     <Text style={{ fontSize: 22, fontWeight:'bold' }}>{`${String((home.stats.seasonAVG_overall + away.stats.seasonAVG_overall)/2).substring(0,4)}`}</Text>
-                                    <Text style={{ fontSize: 12 }}>{`League: ${leagueData.data.seasonAVG_overall}`}</Text>
+                                    <Text style={{ fontSize: 12 }}>{`League: ${leagueData.seasonAVG_overall}`}</Text>
                                 </View>
                             </Body>
                         </CardItem>
@@ -80,7 +80,7 @@ function SummaryStats({ home, away, leagueData }) {
                             <Body>
                                 <View style={{ width: '100%', height: '100%', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                     <Text style={{ fontSize: 22, fontWeight:'bold' }}>{`${String((home.stats.seasonBTTSPercentage_overall + away.stats.seasonBTTSPercentage_overall)/2).substring(0,2)}%`}</Text>
-                                    <Text style={{ fontSize: 12 }}>{`League: ${leagueData.data.seasonBTTSPercentage}%`}</Text>
+                                    <Text style={{ fontSize: 12 }}>{`League: ${leagueData.seasonBTTSPercentage}%`}</Text>
                                 </View>
                             </Body>
                         </CardItem>

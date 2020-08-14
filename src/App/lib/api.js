@@ -28,11 +28,11 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error) => {
-    UtilityFunctions.consoleFunc(
-      'RESPONSE_ERROR',
-      '#E50808',
-      error.response ? error.response : error,
-    );
+    // UtilityFunctions.consoleFunc(
+    //   'RESPONSE_ERROR',
+    //   '#E50808',
+    //   error.response ? error.response : error,
+    // );
     return Promise.reject(error);
   },
 );
