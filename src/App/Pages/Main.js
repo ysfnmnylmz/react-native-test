@@ -14,29 +14,25 @@ import { Text } from 'native-base';
 
 const Stack = createStackNavigator();
 function Main(props) {
+    const [loading, setLoading] = useState(false)
     const store = useStore();
-    useEffect(() => {
-        props.getData();
-        props.getMatches();
-        props.getTeams('2012');
-    })
+    // useEffect(() => {
+    //     props.getData('2012');
+    //     props.getTeams('2012');
+    //     props.getMatches('2012').then(response => {setLoading(true)});
+    // },[])
     const { leaguesReducer, matchesReducer, teamsReducer } = store.getState()
-    if (leaguesReducer.league_loading) {
-        return (
-            <Text>Loading...</Text>
-        )
-    }
-    else {
+    
         return (
             <NavigationContainer>
                 <Stack.Navigator>
-                    <Stack.Screen name='SelectLeague' options={{title: <LeagueHeader data={leaguesReducer[0]} />}}>{props => <SelectLeague {...props} />}</Stack.Screen>
-                    <Stack.Screen name="Home" options={{ title: <LeagueHeader data={leaguesReducer[0]} /> }}>{props => <HomeScreen {...props} teams={teamsReducer} data={leaguesReducer[0]} matches={matchesReducer} />}</Stack.Screen>
-                    <Stack.Screen name="Details" options={{ title: <LeagueHeader data={leaguesReducer[0]} /> }}>{props => <DetailsPage {...props} />}</Stack.Screen>
+                    <Stack.Screen name='SelectLeague' options={{title: <LeagueHeader data={{name_tr:'Lig Seçiniz'}} />}}>{props => <SelectLeague {...props} />}</Stack.Screen>
+                    <Stack.Screen name="Home" options={{ title: <LeagueHeader data={{name_tr:'Maçlar'}} /> }}>{props => <HomeScreen {...props} />}</Stack.Screen>
+                    <Stack.Screen name="Details" options={{ title: <LeagueHeader data={{name_tr:'Maç Detayı'}} /> }}>{props => <DetailsPage {...props} />}</Stack.Screen>
                 </Stack.Navigator>
             </NavigationContainer>
         )
-    }
+    
 };
 
 const mapStateToProps = (state) => ({ 

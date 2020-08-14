@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useStore, connect } from 'react-redux';
 import { Card, CardItem, Body } from 'native-base';
 import { Text, View, ScrollView, Image } from 'react-native';
-import matchDetails from '../../../../fixtures/matchdetail';
+import { getPreMatches } from '../../store/actions/GetPreMatches';
 import moment from 'moment';
 import 'moment/locale/tr';
 moment.locale('tr');
 
-function PreviousResults({ away, home }) {
-    const [matchDetail, setMatchdetail] = useState({});
+function PreviousResults(props) {
     const [preMatches, setPrematches] = useState([]);
     const [isLoading, setLoading] = useState(true);
     function compare(a, b) {
@@ -22,12 +22,13 @@ function PreviousResults({ away, home }) {
         }
         return comparison;
     }
-
+    const {away, home, id} = props;
+    const store = useStore();
+    const { preMatchesReducer } = store.getState()
     useEffect(() => {
-        setMatchdetail(matchDetails);
-        setPrematches(matchDetails.data.h2h.previous_matches_ids.sort(compare))
+        props.getPreMatches(id).then(response => {setPrematches(preMatchesReducer.sort(compare))});
         setLoading(false)
-    }, [matchDetail, isLoading, preMatches])
+    }, [preMatches])
     if (isLoading) {
         return (
             <View>
@@ -107,4 +108,11 @@ function PreviousResults({ away, home }) {
     }
 }
 
-export default PreviousResults;
+const mapStateToProps = (state) => ({ 
+    preMatchesReducer: state.preMatches
+});
+
+const mapDispatchToProps = { getPreMatches };
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(PreviousResults);

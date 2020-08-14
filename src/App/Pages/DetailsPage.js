@@ -47,7 +47,7 @@ function DetailsPage({ route, navigation }) {
       <Content contentContainerStyle={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Tabs locked={true} tabBarUnderlineStyle={{ height: 2 }} renderTabBar={() => <ScrollableTab />}>
           <Tab heading="Aralarındaki Maçlar">
-            <PreviousResults home={home} away={away} match={match} />
+            <PreviousResults id={match.id} home={home} away={away} match={match} />
           </Tab>
           <Tab heading="Özet İstatistikler">
             <SummaryStats home={home} away={away} leagueData={leagueData} />

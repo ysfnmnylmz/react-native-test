@@ -1,6 +1,10 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import { View, Image, Button, StatusBar } from 'react-native';
+import { useStore, connect } from 'react-redux';
 import { Content, Card, CardItem, Body, Text, Right } from 'native-base';
+import { getData } from '../store/actions/GetLeagues';
+import { getMatches } from '../store/actions/GetMatches';
+import { getTeams } from '../store/actions/GetTeams';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 const win = require('../../../assets/icons/win.png');
 const loss = require('../../../assets/icons/loss.png');
@@ -8,8 +12,16 @@ const draw = require('../../../assets/icons/draw.png');
 const scored = require('../../../assets/icons/scored.png');
 const conceced = require('../../../assets/icons/conceced.png');
 
-function HomeScreen({ data, teams, matches, route, navigation }) {
-
+function HomeScreen(props) {
+    const [loading, setLoading] = useState(false)
+    const store = useStore();
+    useEffect(()=>{
+        const {id}= props.route.params;
+        props.getData(id);
+        props.getTeams(id);
+        props.getMatches(id).then(response => {setLoading(true)});
+    })
+    const { leaguesReducer, matchesReducer, teamsReducer } = store.getState()
     const LeftActions = (match, matchTeams) => {
         let home = {};
         if (match.homeID === matchTeams[0].id) {
@@ -84,17 +96,22 @@ function HomeScreen({ data, teams, matches, route, navigation }) {
             </CardItem>
         )
     }
+    if (!loading) {
+        return (
+            <Text>Loading...</Text>
+        )
+    }else{
     return (
         <View style={{ flex: 1, alignItems: 'stretch' }}>
             <StatusBar backgroundColor={'tomato'} barStyle={'light-content'} hidden={false} translucent={false} />
-            {data && (
+            {leaguesReducer[0] && (
                 <Content contentContainerStyle={{ justifyContent: 'center' }}>
-                    {matches && (
-                        matches.map((match) => {
-                            if (match.status !== 'complete' && data.game_week === match.game_week) {
+                    {matchesReducer && (
+                        matchesReducer.map((match) => {
+                            if (match.status !== 'complete' && leaguesReducer[0].game_week === match.game_week) {
                                 let matchTeams = [];
-                                teams && (
-                                    teams.map((team) => {
+                                teamsReducer && (
+                                    teamsReducer.map((team) => {
                                         match.homeID === team.id && matchTeams.push(team);
                                         match.awayID === team.id && matchTeams.push(team);
                                     })
@@ -115,7 +132,7 @@ function HomeScreen({ data, teams, matches, route, navigation }) {
                                                     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                                                         <Text note style={{ fontSize: 8 }}>Hafta</Text>
                                                         <Text note style={{ fontSize: 10 }}>{match.game_week}</Text>
-                                                        <Button title={'Detay'} onPress={() => navigation.navigate('Details', { match: match, matchTeamsData: matchTeams, leagueData: data, fullMatches: matches })} />
+                                                        <Button title={'Detay'} onPress={() => props.navigation.navigate('Details', { match: match, matchTeamsData: matchTeams, leagueData: leaguesReducer[0], fullMatches: matchesReducer })} />
                                                     </View>
                                                     <View style={{ flex: 1, flexDirection: 'row' }}>
                                                         <Body>
@@ -135,6 +152,7 @@ function HomeScreen({ data, teams, matches, route, navigation }) {
             )}
         </View>
     )
+                    }
 };
 
 const styles = {
@@ -152,4 +170,14 @@ const styles = {
         fontSize: 12
     }
 }
-export default HomeScreen;
+
+const mapStateToProps = (state) => ({ 
+    leaguesReducer: state.leagues, 
+    matchesReducer: state.matches,
+    teamsReducer: state.teams
+});
+
+const mapDispatchToProps = { getData, getMatches, getTeams };
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
