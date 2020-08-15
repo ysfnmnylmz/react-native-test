@@ -22,11 +22,14 @@ function PreviousResults(props) {
         }
         return comparison;
     }
-    const {away, home, id} = props;
+    const { away, home, id } = props;
     const store = useStore();
     const { preMatchesReducer } = store.getState()
     useEffect(() => {
-        props.getPreMatches(id).then(response => {setPrematches(Array.isArray(preMatchesReducer) ? preMatchesReducer.sort(compare): null); setLoading(false)});
+        props.getPreMatches(id).then(response => {
+            setPrematches(Array.isArray(preMatchesReducer) ? preMatchesReducer.sort(compare) : null);
+            setLoading(false)
+        });
     }, [preMatches])
     if (isLoading) {
         return (
@@ -107,7 +110,7 @@ function PreviousResults(props) {
     }
 }
 
-const mapStateToProps = (state) => ({ 
+const mapStateToProps = (state) => ({
     preMatchesReducer: state.preMatches
 });
 
