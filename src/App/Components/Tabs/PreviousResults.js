@@ -26,8 +26,7 @@ function PreviousResults(props) {
     const store = useStore();
     const { preMatchesReducer } = store.getState()
     useEffect(() => {
-        props.getPreMatches(id).then(response => {setPrematches(preMatchesReducer.sort(compare))});
-        setLoading(false)
+        props.getPreMatches(id).then(response => {setPrematches(Array.isArray(preMatchesReducer) ? preMatchesReducer.sort(compare): null); setLoading(false)});
     }, [preMatches])
     if (isLoading) {
         return (
