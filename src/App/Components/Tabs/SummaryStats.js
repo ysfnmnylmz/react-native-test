@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, ScrollView } from 'react-native';
 import { Content, Card, CardItem, Body, Text } from 'native-base';
-import matchDetails from '../../../../fixtures/matchdetail';
 
 function SummaryStats({ home, away, leagueData }) {
-    const [detail, setDetail] = useState({})
     const [isLoading, setLoading] = useState(true)
     useEffect(() => {
-        setDetail(matchDetails);
         setLoading(false)
-    }, [detail, isLoading])
+    }, [isLoading])
     if (isLoading) {
         return (
             <View>
@@ -66,7 +63,7 @@ function SummaryStats({ home, away, leagueData }) {
                         <CardItem>
                             <Body>
                                 <View style={{ width: '100%', height: '100%', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 22, fontWeight:'bold' }}>{`${String((home.stats.seasonAVG_overall + away.stats.seasonAVG_overall)/2).substring(0,4)}`}</Text>
+                                    <Text style={{ fontSize: 22, fontWeight:'bold' }}>{`${String((parseFloat(home.stats.seasonAVG_overall) + parseFloat(away.stats.seasonAVG_overall))/2).substring(0,4)}`}</Text>
                                     <Text style={{ fontSize: 12 }}>{`League: ${leagueData.seasonAVG_overall}`}</Text>
                                 </View>
                             </Body>

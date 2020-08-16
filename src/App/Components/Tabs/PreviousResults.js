@@ -30,7 +30,7 @@ function PreviousResults(props) {
             setPrematches(Array.isArray(preMatchesReducer) ? preMatchesReducer.sort(compare) : null);
             setLoading(false)
         });
-    }, [preMatches])
+    }, [isLoading])
     if (isLoading) {
         return (
             <View>
