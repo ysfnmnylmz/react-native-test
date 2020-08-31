@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Image, Button, StatusBar } from 'react-native';
 import { useStore, connect } from 'react-redux';
 import { Content, Card, CardItem, Body, Text, Right } from 'native-base';
@@ -15,11 +15,11 @@ const conceced = require('../../../assets/icons/conceced.png');
 function HomeScreen(props) {
     const [loading, setLoading] = useState(false)
     const store = useStore();
-    useEffect(()=>{
-        const {id}= props.route.params;
+    useEffect(() => {
+        const { id } = props.route.params;
         props.getData(id);
         props.getTeams(id);
-        props.getMatches(id).then(response => {setLoading(true)});
+        props.getMatches(id).then(response => { setLoading(true) });
     })
     const { leaguesReducer, matchesReducer, teamsReducer } = store.getState()
     const LeftActions = (match, matchTeams) => {
@@ -100,59 +100,59 @@ function HomeScreen(props) {
         return (
             <Text>Loading...</Text>
         )
-    }else{
-    return (
-        <View style={{ flex: 1, alignItems: 'stretch' }}>
-            <StatusBar backgroundColor={'tomato'} barStyle={'light-content'} hidden={false} translucent={false} />
-            {leaguesReducer[0] && (
-                <Content contentContainerStyle={{ justifyContent: 'center' }}>
-                    {matchesReducer && (
-                        matchesReducer.map((match) => {
-                            if (match.status !== 'complete' && leaguesReducer[0].game_week === match.game_week) {
-                                let matchTeams = [];
-                                teamsReducer && (
-                                    teamsReducer.map((team) => {
-                                        match.homeID === team.id && matchTeams.push(team);
-                                        match.awayID === team.id && matchTeams.push(team);
-                                    })
-                                )
-                                return (
-                                    <View key={match.id}>
-                                        <Card>
-                                            <Swipeable
-                                                renderLeftActions={() => LeftActions(match, matchTeams)}
-                                                renderRightActions={() => RightActions(match, matchTeams)}>
-                                                <CardItem style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-                                                    <View style={{ flex: 1, flexDirection: 'row' }}>
-                                                        <Image style={{ width: 40, height: 40 }} source={{ uri: `https://cdn.footystats.org/img/${match.home_image}` }} />
-                                                        <Body>
-                                                            <Text style={{ fontSize: 12, textAlign: 'center' }}>{match.home_name}</Text>
-                                                        </Body>
-                                                    </View>
-                                                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                                                        <Text note style={{ fontSize: 8 }}>Hafta</Text>
-                                                        <Text note style={{ fontSize: 10 }}>{match.game_week}</Text>
-                                                        <Button title={'Detay'} onPress={() => props.navigation.navigate('Details', { match: match, matchTeamsData: matchTeams, leagueData: leaguesReducer[0], fullMatches: matchesReducer })} />
-                                                    </View>
-                                                    <View style={{ flex: 1, flexDirection: 'row' }}>
-                                                        <Body>
-                                                            <Text style={{ fontSize: 12, textAlign: 'center' }}>{match.away_name}</Text>
-                                                        </Body>
-                                                        <Image style={{ width: 40, height: 40 }} source={{ uri: `https://cdn.footystats.org/img/${match.away_image}` }} />
-                                                    </View>
-                                                </CardItem>
-                                            </Swipeable>
-                                        </Card>
-                                    </View>
-                                )
-                            }
-                        })
-                    )}
-                </Content>
-            )}
-        </View>
-    )
-                    }
+    } else {
+        return (
+            <View style={{ flex: 1, alignItems: 'stretch' }}>
+                <StatusBar hidden={true} translucent={false} />
+                {leaguesReducer[0] && (
+                    <Content contentContainerStyle={{ justifyContent: 'center' }}>
+                        {matchesReducer && (
+                            matchesReducer.map((match) => {
+                                if (leaguesReducer[0].game_week === match.game_week) {
+                                    let matchTeams = [];
+                                    teamsReducer && (
+                                        teamsReducer.map((team) => {
+                                            match.homeID === team.id && matchTeams.push(team);
+                                            match.awayID === team.id && matchTeams.push(team);
+                                        })
+                                    )
+                                    return (
+                                        <View key={match.id}>
+                                            <Card>
+                                                <Swipeable
+                                                    renderLeftActions={() => LeftActions(match, matchTeams)}
+                                                    renderRightActions={() => RightActions(match, matchTeams)}>
+                                                    <CardItem style={styles.matchCard}>
+                                                        <View style={{ flex: 1, flexDirection: 'row' }}>
+                                                            <Image style={styles.teamLogo} source={{ uri: `https://cdn.footystats.org/img/${match.home_image}` }} />
+                                                            <Body>
+                                                                <Text style={styles.teamName}>{match.home_name}</Text>
+                                                            </Body>
+                                                        </View>
+                                                        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                                                            <Text note style={{ fontSize: 8 }}>Hafta</Text>
+                                                            <Text note style={{ fontSize: 10 }}>{match.game_week}</Text>
+                                                            <Button title={'Detay'} onPress={() => props.navigation.navigate('Details', { match: match, matchTeamsData: matchTeams, leagueData: leaguesReducer[0], fullMatches: matchesReducer })} />
+                                                        </View>
+                                                        <View style={{ flex: 1, flexDirection: 'row' }}>
+                                                            <Body>
+                                                                <Text style={styles.teamName}>{match.away_name}</Text>
+                                                            </Body>
+                                                            <Image style={styles.teamLogo} source={{ uri: `https://cdn.footystats.org/img/${match.away_image}` }} />
+                                                        </View>
+                                                    </CardItem>
+                                                </Swipeable>
+                                            </Card>
+                                        </View>
+                                    )
+                                }
+                            })
+                        )}
+                    </Content>
+                )}
+            </View>
+        )
+    }
 };
 
 const styles = {
@@ -168,11 +168,24 @@ const styles = {
     },
     dataText: {
         fontSize: 12
+    },
+    matchCard:{ 
+        flex: 1, 
+        flexDirection: 'row', 
+        justifyContent: 'space-between' 
+    },
+    teamName:{ 
+        fontSize: 12, 
+        textAlign: 'center' 
+    },
+    teamLogo: { 
+        width: 40, 
+        height: 40 
     }
 }
 
-const mapStateToProps = (state) => ({ 
-    leaguesReducer: state.leagues, 
+const mapStateToProps = (state) => ({
+    leaguesReducer: state.leagues,
     matchesReducer: state.matches,
     teamsReducer: state.teams
 });

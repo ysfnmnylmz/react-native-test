@@ -6,6 +6,7 @@ import HomeScreen from './HomeScreen';
 import DetailsPage from './DetailsPage';
 import SelectLeague from './SelectLeague';
 import LeagueHeader from '../Components/Common/LeagueHeader';
+import SelectCountry from './SelectCountry'
 import { connect, useStore } from 'react-redux';
 import { getData } from '../store/actions/GetLeagues';
 import { getMatches } from '../store/actions/GetMatches';
@@ -26,6 +27,7 @@ function Main(props) {
         return (
             <NavigationContainer>
                 <Stack.Navigator>
+                    <Stack.Screen name='SelectCountry' options={{title: <LeagueHeader data={{name_tr:'Ülke Seçiniz'}} />}}>{props => <SelectCountry {...props} />}</Stack.Screen>
                     <Stack.Screen name='SelectLeague' options={{title: <LeagueHeader data={{name_tr:'Lig Seçiniz'}} />}}>{props => <SelectLeague {...props} />}</Stack.Screen>
                     <Stack.Screen name="Home" options={{ title: <LeagueHeader data={{name_tr:'Maçlar'}} /> }}>{props => <HomeScreen {...props} />}</Stack.Screen>
                     <Stack.Screen name="Details" options={{ title: <LeagueHeader data={{name_tr:'Maç Detayı'}} /> }}>{props => <DetailsPage {...props} />}</Stack.Screen>
