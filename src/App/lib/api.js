@@ -1,7 +1,7 @@
 import axios from 'axios';
 import UtilityFunctions from './UtilityFunctions';
 
-const BASE_URL = 'http://192.168.1.43:7362/api/';
+const BASE_URL = 'http://85.95.240.192/api/';
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,

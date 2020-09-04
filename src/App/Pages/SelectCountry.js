@@ -1,21 +1,22 @@
 import React from 'react';
-import { View, Image } from 'react-native';
-import { leagues } from '../lib/constants';
-import { Content, Card, CardItem, Body, Text, Right } from 'native-base';
+import { View, Image, TouchableOpacity } from 'react-native';
+import { countries, symbol } from '../lib/constants';
+import { Content, Card, CardItem, Text } from 'native-base';
 
-function SelectCountry() {
-    return(
-        <Content>
-            {console.log(leagues)}
-            {leagues.map((league, index) => 
+function SelectCountry(props) {
+    return (
+        <Content contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
+            {countries.map((country, index) =>
                 (
-                    <Card>
-                        <CardItem>
-                            <View>
-                                {/* <Image source={flag} style={{width:50, height:50}}/> */}
-                                <Text>{league}</Text>
-                            </View>
-                        </CardItem>
+                    <Card style={{ width: '48%' }} key={String(index)}>
+                        <TouchableOpacity onPress={() => props.navigation.navigate('SelectLeague',{country})}>
+                            <CardItem >
+                                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                    <Image source={symbol(country)} style={{ width: 100, height: 100 }} />
+                                    <Text style={{ textTransform: 'capitalize' }}>{country}</Text>
+                                </View>
+                            </CardItem>
+                        </TouchableOpacity>
                     </Card>
                 )
             )}
