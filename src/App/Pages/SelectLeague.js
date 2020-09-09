@@ -1,10 +1,35 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
+import { AdMobInterstitial, AdMobBanner } from 'expo-ads-admob';
 import { leagues,symbol } from '../lib/constants';
 import { View, Image, TouchableOpacity } from 'react-native';
 import { Content, Card, CardItem, Text } from 'native-base';
 
 function SelectLeague(props) {
     const { navigation, route } = props
+    const [adReady, setAdready] = useState(false);
+    const insterstitialAdId = 'ca-app-pub-4742367558871759/2009627266'
+    useEffect(()=>{
+        AdMobInterstitial.setAdUnitID(insterstitialAdId);
+        AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true });
+        const ready = AdMobInterstitial.getIsReadyAsync();
+        AdMobInterstitial.addEventListener('interstitialDidLoad',
+            () => AdMobInterstitial.showAdAsync()
+        );
+
+        AdMobInterstitial.addEventListener('interstitialDidFailToLoad',
+            () => setAdready(false)
+        );
+
+        AdMobInterstitial.addEventListener('interstitialDidOpen',
+            () => setAdready(true)
+        );
+        AdMobInterstitial.addEventListener('interstitialDidClose',
+            () => setAdready(true)
+        );
+        AdMobInterstitial.addEventListener('interstitialWillLeaveApplication',
+            () => console.log('interstitialWillLeaveApplication')
+        );
+    },[])
     return (
         <Content contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
             {leagues.map(league => {
