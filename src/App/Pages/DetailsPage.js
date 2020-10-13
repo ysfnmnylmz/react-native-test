@@ -1,11 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Content, Tab, Tabs, ScrollableTab } from 'native-base';
-import SummaryStats from '../Components/Tabs/SummaryStats';
-import PreviousResults from '../Components/Tabs/PreviousResults';
-import FormTab from '../Components/Tabs/FormTab';
-import TeamTable from '../Components/Tabs/TeamTable';
-import MatchPotential from '../Components/Tabs/MatchPotential';
+import {SummaryStats, PreviousResults, FormTab, TeamTable, MatchPotential} from '../Components/Tabs'
 
 function DetailsPage({ route, navigation }) {
   const { matchTeamsData, match, leagueData, fullMatches } = route.params;
