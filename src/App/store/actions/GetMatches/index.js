@@ -1,11 +1,6 @@
 import {GET_MATCHES, GET_MATCHES_FAIL, GET_MATCHES_SUCCESS} from './type';
+import {getDataRequest,getDataSuccess,getDataFail} from '../../../lib/helpers'
 import api from '../../../lib/api';
-
-export const getDataRequest = (type) => ({type});
-
-export const getDataFail = (type, error) => ({type, payload: error});
-
-export const getDataSuccess = (type, data) => ({type, payload: data});
 
 export const getMatches = (league_id) => async (dispatch) => {
   await dispatch(getDataRequest(GET_MATCHES));

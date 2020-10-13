@@ -1,11 +1,6 @@
 import {GET_PRE_MATCHES, GET_PRE_MATCHES_FAIL, GET_PRE_MATCHES_SUCCESS} from './type';
 import api from '../../../lib/api';
-
-export const getDataRequest = (type) => ({type});
-
-export const getDataFail = (type, error) => ({type, payload: error});
-
-export const getDataSuccess = (type, data) => ({type, payload: data});
+import {getDataRequest,getDataSuccess,getDataFail} from '../../../lib/helpers'
 
 export const getPreMatches = (match_id) => async (dispatch) => {
   await dispatch(getDataRequest(GET_PRE_MATCHES));
