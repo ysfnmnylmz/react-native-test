@@ -9,9 +9,7 @@ import {HomeScreen, DetailsPage, SelectCountry, SelectLeague} from './index'
 
 import {LeagueHeader} from '../Components/Common';
 
-import {getData} from '../store/actions/GetLeagues';
-import {getMatches} from '../store/actions/GetMatches';
-import {getTeams} from '../store/actions/GetTeams';
+import {getData, getMatches, getTeams} from '../store/actions'
 
 const Stack = createStackNavigator();
 
@@ -42,7 +40,7 @@ function Main(props) {
         </NavigationContainer>
     )
 
-};
+}
 
 const mapStateToProps = (state) => ({
     leaguesReducer: state.leagues,
