@@ -21,7 +21,7 @@ function HomeScreen(props) {
         props.getTeams(id);
         props.getMatches(id).then(response => { setLoading(true) });
     })
-    const { leaguesReducer, matchesReducer, teamsReducer } = store.getState()
+    const { leaguesReducer, matchesReducer, teamsReducer, announcementsReducer } = store.getState()
     const LeftActions = (match, matchTeams) => {
         let home = {};
         if (match.homeID === matchTeams[0].id) {
@@ -169,18 +169,18 @@ const styles = {
     dataText: {
         fontSize: 12
     },
-    matchCard:{ 
-        flex: 1, 
-        flexDirection: 'row', 
-        justifyContent: 'space-between' 
+    matchCard:{
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     },
-    teamName:{ 
-        fontSize: 12, 
-        textAlign: 'center' 
+    teamName:{
+        fontSize: 12,
+        textAlign: 'center'
     },
-    teamLogo: { 
-        width: 40, 
-        height: 40 
+    teamLogo: {
+        width: 40,
+        height: 40
     }
 }
 

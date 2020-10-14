@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Image, TouchableOpacity } from 'react-native';
 import { countries, symbol } from '../lib/constants';
 import { Content, Card, CardItem, Text } from 'native-base';
+import {AnnouncementsAlert} from "../Components/Common";
 
 function SelectCountry(props) {
     return (
