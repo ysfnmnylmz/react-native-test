@@ -3,7 +3,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import 'react-native-gesture-handler';
 import {createStackNavigator} from '@react-navigation/stack';
 import {connect, useStore} from 'react-redux';
-import {Text} from 'native-base';
 
 import {HomeScreen, DetailsPage, SelectCountry, SelectLeague} from './index'
 
@@ -12,17 +11,14 @@ import {AnnouncementsAlert, LeagueHeader} from '../Components/Common';
 import {getData, getMatches, getTeams} from '../store/actions'
 import {getAnnouncements} from "../store/actions/GetAnnouncements";
 
-import moment from "moment";
-
 const Stack = createStackNavigator();
 
 function Main(props) {
     const [loading, setLoading] = useState(true)
     const store = useStore();
     useEffect(() => {
-        props.getAnnouncements({active:'true', date:moment().format('YYYY-MM-DD')}).then(response => setLoading(false))
+        // props.getAnnouncements({active:'true', date:moment().format('YYYY-MM-DD')}).then(response => setLoading(false))
     },[])
-    const {leaguesReducer, matchesReducer, teamsReducer, announcementsReducer} = store.getState()
 
     return (
         <NavigationContainer>
@@ -38,7 +34,7 @@ function Main(props) {
                 <Stack.Screen name="Details" options={{title: <LeagueHeader data={{name_tr: 'Maç Detayı'}}/>}}>{props =>
                     <DetailsPage {...props} />}</Stack.Screen>
             </Stack.Navigator>
-            {loading || <AnnouncementsAlert data={announcementsReducer}/>}
+            {/*{loading || <AnnouncementsAlert data={announcementsReducer.data}/>}*/}
         </NavigationContainer>
     )
 
@@ -51,7 +47,7 @@ const mapStateToProps = (state) => ({
     announcementsReducer: state.announcementsReducer
 });
 
-const mapDispatchToProps = {getData, getMatches, getTeams,getAnnouncements};
+const mapDispatchToProps = {getData, getMatches, getTeams, getAnnouncements};
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

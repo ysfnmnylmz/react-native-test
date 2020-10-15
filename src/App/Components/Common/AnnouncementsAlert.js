@@ -1,7 +1,5 @@
-import React, {useEffect} from 'react';
-import { Text, View, Image, Alert } from 'react-native';
-import {Container} from 'native-base';
-import {getAnnouncements} from "../../store/actions";
+import React from 'react';
+import { Alert } from 'react-native';
 
 const AnnouncementsAlert = ({data}) => {
     const alert = (data) =>
@@ -13,7 +11,7 @@ const AnnouncementsAlert = ({data}) => {
             ],
             { cancelable: false }
         );
-    return (<>{alert(data[0])}</>);
+    return (<>{data && alert(data[0])}</>);
 };
 
 export default AnnouncementsAlert;
