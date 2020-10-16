@@ -1,6 +1,5 @@
 import React,{useState, useEffect} from 'react';
 import { AdMobInterstitial, AdMobBanner } from 'expo-ads-admob';
-import { leagues,symbol } from '../lib/constants';
 import { View, Image, TouchableOpacity } from 'react-native';
 import { Content, Card, CardItem, Text } from 'native-base';
 
@@ -32,25 +31,18 @@ function SelectLeague(props) {
     },[])
     return (
         <Content contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
-            {leagues.map(league => {
-                if (league.country === route.params.country) {
-                    return (league.leagues.map((lig, index) =>
-                        (
-                            <Card style={{ width: '48%' }} key={String(index)}>
-                                <TouchableOpacity onPress={() => navigation.navigate(('Home'), { id: lig.id })}>
-                                    <CardItem >
-                                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                            <Image source={symbol(route.params.country+'-'+lig.name)} style={{ width: 100, height: 100 }} />
-                                            <Text style={{ textTransform: 'capitalize' }}>{lig.name}</Text>
-                                        </View>
-                                    </CardItem>
-                                </TouchableOpacity>
-                            </Card>
-                        )
-                    ))
-                }
-            }
-            )}
+            {route.params.item.map((league) => (
+              <Card style={{ width: '48%' }} key={String(league.id)}>
+                  <TouchableOpacity onPress={() => navigation.navigate(('Home'), { id: league.code })}>
+                      <CardItem >
+                          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                              <Image source={league.image} style={{ width: 100, height: 100 }} />
+                              <Text style={{ textTransform: 'capitalize' }}>{league.name}</Text>
+                          </View>
+                      </CardItem>
+                  </TouchableOpacity>
+              </Card>
+            ))}
         </Content>
     )
 };

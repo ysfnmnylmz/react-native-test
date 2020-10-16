@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import 'react-native-gesture-handler';
 import {createStackNavigator} from '@react-navigation/stack';
-import {connect, useStore} from 'react-redux';
+import {connect} from 'react-redux';
 
 import {HomeScreen, DetailsPage, SelectCountry, SelectLeague} from './index'
 
