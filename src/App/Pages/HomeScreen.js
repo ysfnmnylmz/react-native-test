@@ -6,6 +6,7 @@ import { getData } from '../store/actions/GetLeagues';
 import { getMatches } from '../store/actions/GetMatches';
 import { getTeams } from '../store/actions/GetTeams';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import {Loader} from "../Components/Common";
 const win = require('../../../assets/icons/win.png');
 const loss = require('../../../assets/icons/loss.png');
 const draw = require('../../../assets/icons/draw.png');
@@ -98,7 +99,7 @@ function HomeScreen(props) {
     }
     if (!loading) {
         return (
-            <Text>Loading...</Text>
+            <Loader/>
         )
     } else {
         return (

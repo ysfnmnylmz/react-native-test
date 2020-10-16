@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, ScrollView } from 'react-native';
 import { Content, Card, CardItem, Body, Text } from 'native-base';
+import {Loader} from "../Common";
 
 function SummaryStats({ home, away, leagueData }) {
     const [isLoading, setLoading] = useState(true)
@@ -9,9 +10,7 @@ function SummaryStats({ home, away, leagueData }) {
     }, [isLoading])
     if (isLoading) {
         return (
-            <View>
-                <Text>Lütfen Bekleyiniz...</Text>
-            </View>
+          <Loader/>
         )
     } else {
         return (

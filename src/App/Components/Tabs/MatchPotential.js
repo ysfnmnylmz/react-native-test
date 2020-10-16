@@ -3,7 +3,6 @@ import { ScrollView, View } from 'react-native';
 import { Content, Card, CardItem, Body, Text } from 'native-base';
 
 function MatchPotential({ home, away, match }) {
-    console.log(match)
     return (
         <ScrollView>
             <Content contentContainerStyle={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>

@@ -8,6 +8,7 @@ import { Content, Card, CardItem, Body, Text } from 'native-base';
 import NumberStats from './NumberStats';
 
 import matchDetails from '../../../../fixtures/matchdetail';
+import {Loader} from "../Common";
 
 function FormTab({ homePrematches, awayPrematches, home, away, leagueData, match }) {
     const [detail, setDetail] = useState({})
@@ -25,9 +26,7 @@ function FormTab({ homePrematches, awayPrematches, home, away, leagueData, match
 
     if (loading) {
         return (
-            <View>
-                <Text>Yükleniyor...</Text>
-            </View>
+          <Loader/>
         )
     } else {
         return (

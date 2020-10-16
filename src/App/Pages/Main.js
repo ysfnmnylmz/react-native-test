@@ -6,7 +6,7 @@ import {connect, useStore} from 'react-redux';
 
 import {HomeScreen, DetailsPage, SelectCountry, SelectLeague} from './index'
 
-import {AnnouncementsAlert, LeagueHeader} from '../Components/Common';
+import { LeagueHeader} from '../Components/Common';
 
 import {getData, getMatches, getTeams} from '../store/actions'
 import {getAnnouncements} from "../store/actions/GetAnnouncements";
@@ -14,8 +14,7 @@ import {getAnnouncements} from "../store/actions/GetAnnouncements";
 const Stack = createStackNavigator();
 
 function Main(props) {
-    const [loading, setLoading] = useState(true)
-    const store = useStore();
+    /*const store = useStore();*/
     useEffect(() => {
         // props.getAnnouncements({active:'true', date:moment().format('YYYY-MM-DD')}).then(response => setLoading(false))
     },[])

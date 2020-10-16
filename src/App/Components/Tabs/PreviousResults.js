@@ -5,6 +5,7 @@ import { Text, View, ScrollView, Image } from 'react-native';
 import { getPreMatches } from '../../store/actions/GetPreMatches';
 import moment from 'moment';
 import 'moment/locale/tr';
+import {Loader} from "../Common";
 moment.locale('tr');
 
 function PreviousResults(props) {
@@ -33,9 +34,7 @@ function PreviousResults(props) {
     }, [isLoading])
     if (isLoading) {
         return (
-            <View>
-                <Text>Lütfen Bekleyiniz...</Text>
-            </View>
+          <Loader/>
         )
     } else {
         return (
