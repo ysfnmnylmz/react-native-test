@@ -10,7 +10,7 @@ import NumberStats from './NumberStats';
 import matchDetails from '../../../../fixtures/matchdetail';
 import {Loader} from "../Common";
 
-function FormTab({ homePrematches, awayPrematches, home, away, leagueData, match }) {
+const FormTab =({ homePrematches, awayPrematches, home, away, leagueData, match }) => {
     const [detail, setDetail] = useState({})
     const [loading, setLoading] = useState(true);
     useEffect(() => {

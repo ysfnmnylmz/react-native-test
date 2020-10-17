@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, View } from 'react-native';
 import { Content, Card, CardItem, Body, Text } from 'native-base';
 
-function MatchPotential({ home, away, match }) {
+const MatchPotential = ({ home, away, match })=> {
     return (
         <ScrollView>
             <Content contentContainerStyle={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>

@@ -3,7 +3,7 @@ import { View, ScrollView } from 'react-native';
 import { Content, Card, CardItem, Body, Text } from 'native-base';
 import {Loader} from "../Common";
 
-function SummaryStats({ home, away, leagueData }) {
+const SummaryStats = ({ home, away, leagueData }) => {
     const [isLoading, setLoading] = useState(true)
     useEffect(() => {
         setLoading(false)

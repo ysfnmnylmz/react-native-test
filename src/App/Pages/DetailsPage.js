@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { Content, Tab, Tabs, ScrollableTab } from 'native-base';
 import {SummaryStats, PreviousResults, FormTab, TeamTable, MatchPotential} from '../Components/Tabs'
 
-function DetailsPage({ route, navigation }) {
+const DetailsPage =({ route, navigation })=> {
   const { matchTeamsData, match, leagueData, fullMatches } = route.params;
   let homePrematches = [];
   let awayPrematches = [];

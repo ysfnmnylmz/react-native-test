@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, ScrollView, Image } from 'react-native';
 
-function NumberStats({ team, match, styles }) {
+const NumberStats = ({ team, match, styles }) => {
     return (
         <ScrollView style={{ borderWidth: 1, borderColor: '#7a7a7a', borderRadius: 2,paddingLeft:10, margin: 5 }}>
             <Image style={{marginLeft:'35%', width: 50, height: 50}} source={{ uri: `${team.image}` }} />

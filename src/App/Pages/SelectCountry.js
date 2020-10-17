@@ -5,7 +5,7 @@ import {AnnouncementsAlert, Loader} from "../Components/Common";
 import {getCountries} from "../store/actions/GetCountryList";
 import {connect, useStore} from "react-redux";
 
-function SelectCountry(props) {
+const SelectCountry=(props)=> {
   const store = useStore();
   const {countryListReducer} = store.getState()
   useEffect(() => {

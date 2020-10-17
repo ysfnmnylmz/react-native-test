@@ -13,7 +13,7 @@ import {getAnnouncements} from "../store/actions/GetAnnouncements";
 
 const Stack = createStackNavigator();
 
-function Main(props) {
+const Main = (props) => {
     /*const store = useStore();*/
     useEffect(() => {
         // props.getAnnouncements({active:'true', date:moment().format('YYYY-MM-DD')}).then(response => setLoading(false))

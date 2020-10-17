@@ -3,7 +3,7 @@ import { AdMobInterstitial, AdMobBanner } from 'expo-ads-admob';
 import { View, Image, TouchableOpacity } from 'react-native';
 import { Content, Card, CardItem, Text } from 'native-base';
 
-function SelectLeague(props) {
+const SelectLeague = (props) => {
     const { navigation, route } = props
     const [adReady, setAdready] = useState(false);
     const insterstitialAdId = 'ca-app-pub-4742367558871759/2009627266'
