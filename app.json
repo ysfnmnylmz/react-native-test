@@ -7,13 +7,16 @@
       "android",
       "web"
     ],
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
+    "notification": {
+      "icon": "./assets/logo-96x96-2.png"
+    },
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff",
+      "backgroundColor": "#ffffff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -22,9 +25,10 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ysfnmnylmz.soccerstatistics"
     },
-    "android":{
+    "android": {
       "package": "com.ysfnmnylmz.soccerstatistics"
     }
   }
