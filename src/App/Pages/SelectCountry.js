@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import {View, Image, TouchableOpacity} from 'react-native';
-import {countries, symbol} from '../lib/constants';
 import {Content, Card, CardItem, Text} from 'native-base';
 import {AnnouncementsAlert, Loader} from "../Components/Common";
 import {getCountries} from "../store/actions/GetCountryList";
@@ -22,7 +21,7 @@ function SelectCountry(props) {
               <TouchableOpacity onPress={() => props.navigation.navigate('SelectLeague', {item: item.leagues})}>
                 <CardItem>
                   <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                    <Image source={item.image} style={{width: 100, height: 100}}/>
+                    <Image source={{uri:item.image}} style={{width: 100, height: 100}}/>
                     <Text style={{textTransform: 'capitalize'}}>{item.country}</Text>
                   </View>
                 </CardItem>

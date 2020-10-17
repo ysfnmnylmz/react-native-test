@@ -104,7 +104,6 @@ function HomeScreen(props) {
     } else {
         return (
             <View style={{ flex: 1, alignItems: 'stretch' }}>
-                <StatusBar hidden={true} translucent={false} />
                 {leaguesReducer[0] && (
                     <Content contentContainerStyle={{ justifyContent: 'center' }}>
                         {matchesReducer && (

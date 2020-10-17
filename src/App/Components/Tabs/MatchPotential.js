@@ -42,7 +42,7 @@ function MatchPotential({ home, away, match }) {
                         </Body>
                     </CardItem>
                 </Card>
-                <Card style={{ width: '48%' }}>
+                <Card style={{ width: '32%' }}>
                     <CardItem header style={{ backgroundColor: '#333', height: 15 }}>
                         <Text style={{ fontSize: 12, color: 'white' }}>İY 0.5 Üstü</Text>
                     </CardItem>
@@ -54,7 +54,7 @@ function MatchPotential({ home, away, match }) {
                         </Body>
                     </CardItem>
                 </Card>
-                <Card style={{ width: '48%' }}>
+                <Card style={{ width: '32%' }}>
                     <CardItem header style={{ backgroundColor: '#333', height: 15 }}>
                         <Text style={{ fontSize: 12, color: 'white' }}>İY 1.5 Üstü</Text>
                     </CardItem>
@@ -66,6 +66,18 @@ function MatchPotential({ home, away, match }) {
                         </Body>
                     </CardItem>
                 </Card>
+                <Card style={{ width: '32%' }}>
+                <CardItem header style={{ backgroundColor: '#333', height: 15 }}>
+                    <Text style={{ fontSize: 12, color: 'white' }}>Karşılıklı Gol</Text>
+                </CardItem>
+                <CardItem>
+                    <Body>
+                        <View style={{ width: '100%', height: '100%', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <Text style={[styles.fontStyle]}>{`${match.btts_potential}%`}</Text>
+                        </View>
+                    </Body>
+                </CardItem>
+            </Card>
                 <Card style={{ width: '48%' }}>
                     <CardItem header style={{ backgroundColor: '#333', height: 15 }}>
                         <Text style={{ fontSize: 12, color: 'white' }}>Korner Beklentisi</Text>

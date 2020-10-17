@@ -36,7 +36,7 @@ function SelectLeague(props) {
                   <TouchableOpacity onPress={() => navigation.navigate(('Home'), { id: league.code })}>
                       <CardItem >
                           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                              <Image source={league.image} style={{ width: 100, height: 100 }} />
+                              <Image source={{uri:league.image}} style={{ width: 100, height: 100 }} />
                               <Text style={{ textTransform: 'capitalize' }}>{league.name}</Text>
                           </View>
                       </CardItem>
