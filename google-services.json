@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "461431365834",
+    "firebase_url": "https://soccer-statistics-9040a.firebaseio.com",
+    "project_id": "soccer-statistics-9040a",
+    "storage_bucket": "soccer-statistics-9040a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461431365834:android:b1f50ead380311ba17d433",
+        "android_client_info": {
+          "package_name": "com.ysfnmnylmz.soccerstatistics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "461431365834-98106nvrahosb0411ahdlf3lp5e9qc6q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ysfnmnylmz.soccerstatistics",
+            "certificate_hash": "3d6931ccfed2afcead429d750e33ebd42699fb6b"
+          }
+        },
+        {
+          "client_id": "461431365834-gvf9jtp2vlbsuq6k19iqhvmnn4plf7k9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKZpSAVFH9BkLdQkgUmNm9ZNT7wPu2Tys"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "461431365834-gvf9jtp2vlbsuq6k19iqhvmnn4plf7k9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-4742367558871759~2201198950"
+    }
+  ],
+  "configuration_version": "1"
+}

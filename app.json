@@ -29,7 +29,8 @@
       "bundleIdentifier": "com.ysfnmnylmz.soccerstatistics"
     },
     "android": {
-      "package": "com.ysfnmnylmz.soccerstatistics"
+      "package": "com.ysfnmnylmz.soccerstatistics",
+      "googleServicesFile": "./google-services.json"
     }
   }
 }
