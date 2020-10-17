@@ -30,7 +30,8 @@
     },
     "android": {
       "package": "com.ysfnmnylmz.soccerstatistics",
-      "googleServicesFile": "./google-services.json"
+      "googleServicesFile": "./google-services.json",
+      "versionCode": 2
     }
   }
 }
