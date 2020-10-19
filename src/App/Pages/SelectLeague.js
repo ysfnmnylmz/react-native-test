@@ -33,7 +33,7 @@ const SelectLeague = (props) => {
         <Content contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
             {route.params.item.map((league) => (
               <Card style={{ width: '48%' }} key={String(league.id)}>
-                  <TouchableOpacity onPress={() => navigation.navigate(('Home'), { id: league.code })}>
+                  <TouchableOpacity onPress={() => navigation.navigate(('Home'), { id: league.code, tolerance:league.tolerance })}>
                       <CardItem >
                           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                               <Image source={{uri:league.image}} style={{ width: 100, height: 100 }} />

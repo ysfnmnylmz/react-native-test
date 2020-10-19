@@ -18,8 +18,8 @@ const HomeScreen = (props) => {
   const [loading, setLoading] = useState(false)
   const store = useStore();
   const {leaguesReducer, matchesReducer, teamsReducer, announcementsReducer} = store.getState()
+  const {id, tolerance} = props.route.params;
   useEffect(() => {
-    const {id} = props.route.params;
     leaguesReducer.data || props.getData(id).then(response => {
       props.getTeams(id)
         .then(response => {
@@ -114,7 +114,7 @@ const HomeScreen = (props) => {
           <Content contentContainerStyle={{justifyContent: 'center'}}>
             {matchesReducer.data && (
               matchesReducer.data.map((match) => {
-                if (leaguesReducer[0].game_week === match.game_week) {
+                if (leaguesReducer[0].game_week+(tolerance) === match.game_week) {
                   let matchTeams = [];
                   teamsReducer.data && (
                     teamsReducer.data.map((team) => {
