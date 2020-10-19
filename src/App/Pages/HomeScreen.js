@@ -17,15 +17,18 @@ const conceced = require('../../../assets/icons/conceced.png');
 const HomeScreen = (props) => {
   const [loading, setLoading] = useState(false)
   const store = useStore();
+  const {leaguesReducer, matchesReducer, teamsReducer, announcementsReducer} = store.getState()
   useEffect(() => {
     const {id} = props.route.params;
-    props.getData(id);
-    props.getTeams(id);
-    props.getMatches(id).then(response => {
-      setLoading(true)
+    leaguesReducer.data || props.getData(id).then(response => {
+      props.getTeams(id)
+        .then(response => {
+          props.getMatches(id).then(response => {
+            setLoading(true)
+          });
+        });
     });
-  })
-  const {leaguesReducer, matchesReducer, teamsReducer, announcementsReducer} = store.getState()
+  },[])
   const LeftActions = (match, matchTeams) => {
     let home = {};
     if (match.homeID === matchTeams[0].id) {
@@ -109,14 +112,14 @@ const HomeScreen = (props) => {
       <View style={{flex: 1, alignItems: 'stretch'}}>
         {leaguesReducer[0] && (
           <Content contentContainerStyle={{justifyContent: 'center'}}>
-            {matchesReducer && (
-              matchesReducer.map((match) => {
+            {matchesReducer.data && (
+              matchesReducer.data.map((match) => {
                 if (leaguesReducer[0].game_week === match.game_week) {
                   let matchTeams = [];
-                  teamsReducer && (
-                    teamsReducer.map((team) => {
-                      match.homeID === team.id && matchTeams.push(team);
-                      match.awayID === team.id && matchTeams.push(team);
+                  teamsReducer.data && (
+                    teamsReducer.data.map((team) => {
+                      (match.homeID === team.id) && matchTeams.push(team);
+                      (match.awayID === team.id) && matchTeams.push(team);
                     })
                   )
                   return (
@@ -140,7 +143,7 @@ const HomeScreen = (props) => {
                                 match: match,
                                 matchTeamsData: matchTeams,
                                 leagueData: leaguesReducer[0],
-                                fullMatches: matchesReducer
+                                fullMatches: matchesReducer.data
                               })}/>
                             </View>
                             <View style={{flex: 1, flexDirection: 'row'}}>
