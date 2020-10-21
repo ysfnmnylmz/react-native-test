@@ -5,6 +5,7 @@ import {SummaryStats, PreviousResults, FormTab, TeamTable, MatchPotential} from 
 
 const DetailsPage =({ route, navigation })=> {
   const { matchTeamsData, match, leagueData, fullMatches } = route.params;
+  console.log(route.params)
   let homePrematches = [];
   let awayPrematches = [];
   let home = {};

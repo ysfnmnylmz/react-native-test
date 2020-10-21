@@ -5,6 +5,7 @@ import teamsReducer from './teams';
 import preMatchesReducer from './prematches';
 import announcementsReducer from "./announcements";
 import countryListReducer from './countrylist';
+import todayMatchesReducer from './todaymatches';
 
 export default combineReducers({
     leaguesReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
     teamsReducer,
     preMatchesReducer,
     announcementsReducer,
-    countryListReducer
+    countryListReducer,
+    todayMatchesReducer
 });
