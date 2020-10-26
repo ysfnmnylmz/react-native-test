@@ -11,6 +11,7 @@ import { LeagueHeader} from '../Components/Common';
 import {getData, getMatches, getTeams} from '../store/actions'
 import {getAnnouncements} from "../store/actions/GetAnnouncements";
 import TodayMatches from "./TodayMatches";
+import TodayDetail from "./TodayDetail";
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,9 @@ const Main = (props) => {
                 <Stack.Screen name='SelectCountry'
                               options={{title: <LeagueHeader data={{name_tr: 'Ülke Seçiniz'}}/>}}>{props =>
                   <SelectCountry {...props} />}</Stack.Screen>
+                <Stack.Screen name='MatchDetail'
+                              options={{title: <LeagueHeader data={{name_tr: 'Maç Detayı'}}/>}}>{props =>
+                  <TodayDetail {...props} />}</Stack.Screen>
                 <Stack.Screen name='SelectLeague'
                               options={{title: <LeagueHeader data={{name_tr: 'Lig Seçiniz'}}/>}}>{props =>
                     <SelectLeague {...props} />}</Stack.Screen>

@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {ScrollView, View, StyleSheet} from 'react-native';
 import {Content, Card, CardItem, Left, Thumbnail, Body, Image, Text, Right} from 'native-base';
 import {Table, TableWrapper, Row, Rows, Col, Cols, Cell} from 'react-native-table-component';
+import {Loader} from "../Common";
 
 
 const TeamTable = ({team, league}) => {
@@ -17,6 +18,7 @@ const TeamTable = ({team, league}) => {
     ['xG', team.stats.xg_for_avg_overall, team.stats.xg_for_avg_home, team.stats.xg_for_avg_away],
     ['xGY', team.stats.xg_against_avg_overall, team.stats.xg_against_avg_home, team.stats.xg_against_avg_away]
   ];
+  if(league){
   return (
     <ScrollView>
       <Content>
@@ -44,6 +46,9 @@ const TeamTable = ({team, league}) => {
       </Content>
     </ScrollView>
   )
+  }else{
+    return(<Loader/>)
+  }
 };
 const styles = StyleSheet.create({
   container: {
