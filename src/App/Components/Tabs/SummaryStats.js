@@ -23,7 +23,7 @@ const SummaryStats = ({ home, away, leagueData }) => {
                         <CardItem>
                             <Body>
                                 <View style={{ width: '100%', height: '100%', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 22, fontWeight:'bold' }}>{`${String((home.stats.seasonOver05Percentage_overall + away.stats.seasonOver05Percentage_overall)/2).substring(0,2)}%`}</Text>
+                                    <Text style={{ fontSize: 22, fontWeight:'bold' }}>{`${Number((home.stats.seasonOver05Percentage_overall + away.stats.seasonOver05Percentage_overall)/2).toFixed(0)}%`}</Text>
                                     <Text style={{ fontSize: 12 }}>{`Lig Ort.: ${leagueData.seasonOver05Percentage_overall}%`}</Text>
                                 </View>
                             </Body>
@@ -36,7 +36,7 @@ const SummaryStats = ({ home, away, leagueData }) => {
                         <CardItem>
                             <Body>
                                 <View style={{ width: '100%', height: '100%', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 22, fontWeight:'bold' }}>{`${String((home.stats.seasonOver15Percentage_overall + away.stats.seasonOver15Percentage_overall)/2).substring(0,2)}%`}</Text>
+                                    <Text style={{ fontSize: 22, fontWeight:'bold' }}>{`${Number((home.stats.seasonOver15Percentage_overall + away.stats.seasonOver15Percentage_overall)/2).toFixed(0)}%`}</Text>
                                     <Text style={{ fontSize: 12 }}>{`Lig Ort.: ${leagueData.seasonOver15Percentage_overall}%`}</Text>
                                 </View>
                             </Body>
@@ -49,7 +49,7 @@ const SummaryStats = ({ home, away, leagueData }) => {
                         <CardItem>
                             <Body>
                                 <View style={{ width: '100%', height: '100%', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 22, fontWeight:'bold' }}>{`${String((home.stats.seasonOver25Percentage_overall + away.stats.seasonOver25Percentage_overall)/2).substring(0,2)}%`}</Text>
+                                    <Text style={{ fontSize: 22, fontWeight:'bold' }}>{`${Number((home.stats.seasonOver25Percentage_overall + away.stats.seasonOver25Percentage_overall)/2).toFixed(0)}%`}</Text>
                                     <Text style={{ fontSize: 12 }}>{`Lig Ort.: ${leagueData.seasonOver25Percentage_overall}%`}</Text>
                                 </View>
                             </Body>
@@ -75,7 +75,7 @@ const SummaryStats = ({ home, away, leagueData }) => {
                         <CardItem>
                             <Body>
                                 <View style={{ width: '100%', height: '100%', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 22, fontWeight:'bold' }}>{`${String((home.stats.seasonBTTSPercentage_overall + away.stats.seasonBTTSPercentage_overall)/2).substring(0,2)}%`}</Text>
+                                    <Text style={{ fontSize: 22, fontWeight:'bold' }}>{`${Number((home.stats.seasonBTTSPercentage_overall + away.stats.seasonBTTSPercentage_overall)/2).toFixed(0)}%`}</Text>
                                     <Text style={{ fontSize: 12 }}>{`Lig Ort.: ${leagueData.seasonBTTSPercentage}%`}</Text>
                                 </View>
                             </Body>

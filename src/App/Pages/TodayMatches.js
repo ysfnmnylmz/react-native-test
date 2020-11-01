@@ -5,6 +5,7 @@ import {Content, Card, CardItem, Body, Text} from 'native-base';
 import {getTodayMatches} from "../store/actions/GetTodayMatches";
 import {Loader} from "../Components/Common";
 import {AdMobBanner} from "expo-ads-admob";
+import * as Notifications from 'expo-notifications';
 import moment from "moment";
 
 const TodayMatches = (props) => {
@@ -12,8 +13,14 @@ const TodayMatches = (props) => {
   const store = useStore();
   const bannerAdd = 'ca-app-pub-4742367558871759/4679018010'
   const {leaguesReducer, matchesReducer, teamsReducer, todayMatchesReducer} = store.getState()
+  const getToken= async ()=>{
+    const token =  (await Notifications.getDevicePushTokenAsync()).data
+    console.log(token)
+  }
+
   useEffect(() => {
     todayMatchesReducer.data || props.getTodayMatches().then(response => setLoading(true))
+    console.log(getToken())
   }, [])
 
   if (!loading) {
@@ -50,7 +57,7 @@ const TodayMatches = (props) => {
                         ) : (
                           <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                             <Text note style={{fontSize: 10}}>{moment.unix(match.date_unix).format("DD MMMM")}</Text>
-                            <Text note style={{fontSize: 12}}>{moment.unix(match.date_unix).format('HH:mm')}</Text>
+                            <Text note style={{fontSize: 12}}>{match.status === 'suspended' ? 'ERTELENDİ': moment.unix(match.date_unix).format('HH:mm') }</Text>
                           </View>
                         )}
                         <View style={{flex: 1, flexDirection: 'row'}}>

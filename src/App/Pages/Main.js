@@ -12,6 +12,7 @@ import {getData, getMatches, getTeams} from '../store/actions'
 import {getAnnouncements} from "../store/actions/GetAnnouncements";
 import TodayMatches from "./TodayMatches";
 import TodayDetail from "./TodayDetail";
+import Reward from "../Components/Reward";
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,9 @@ const Main = (props) => {
     return (
         <NavigationContainer>
             <Stack.Navigator>
+                {/*<Stack.Screen name='Reward'
+                              options={{title: <LeagueHeader data={{name_tr: 'Rewawrd'}}/>}}>{props =>
+                  <Reward {...props} />}</Stack.Screen>*/}
                 <Stack.Screen name='TodayMatches'
                               options={{title: <LeagueHeader data={{name_tr: 'Günün Maçları'}}/>}}>{props =>
                   <TodayMatches {...props} />}</Stack.Screen>

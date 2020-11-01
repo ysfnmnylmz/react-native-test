@@ -10,10 +10,8 @@ import matchDetails from '../../../../fixtures/matchdetail';
 import {Loader} from "../Common";
 
 const FormTab = ({homePrematches, awayPrematches, home, away, leagueData, match}) => {
-  const [detail, setDetail] = useState({})
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    setDetail(matchDetails);
     setLoading(false);
   }, [loading])
 
@@ -44,10 +42,10 @@ const FormTab = ({homePrematches, awayPrematches, home, away, leagueData, match}
                       {homePrematches.map((preMatch, i) => {
                         return (
                           <View
-                            style={preMatch.winningTeam === home.id ? styles.win : preMatch.winningTeam == "-1" ? styles.draw : styles.lost}
+                            style={String(preMatch.winningTeam) === String(home.id).substring(0, String(home.id).length - 4) ? styles.win : preMatch.winningTeam == "-1" ? styles.draw : styles.lost}
                             key={String(i)}>
                             <Text
-                              style={styles.textStyle}>{preMatch.winningTeam == "-1" ? "B" : preMatch.winningTeam === home.id ? "G" : "M"}</Text>
+                              style={styles.textStyle}>{preMatch.winningTeam == "-1" ? "B" : String(preMatch.winningTeam) === String(home.id).substring(0, String(home.id).length - 4) ? "G" : "M"}</Text>
                           </View>
                         )
                       })}
@@ -88,10 +86,10 @@ const FormTab = ({homePrematches, awayPrematches, home, away, leagueData, match}
                       {awayPrematches.map((preMatch, i) => {
                         return (
                           <View
-                            style={preMatch.winningTeam === away.id ? styles.win : preMatch.winningTeam == "-1" ? styles.draw : styles.lost}
+                            style={String(preMatch.winningTeam) === String(away.id).substring(0, String(away.id).length - 4) ? styles.win : preMatch.winningTeam == "-1" ? styles.draw : styles.lost}
                             key={String(i)}>
                             <Text
-                              style={styles.textStyle}>{preMatch.winningTeam == "-1" ? "B" : preMatch.winningTeam === away.id ? "G" : "M"}</Text>
+                              style={styles.textStyle}>{preMatch.winningTeam == "-1" ? "B" : String(preMatch.winningTeam) === String(away.id).substring(0, String(away.id).length - 4) ? "G" : "M"}</Text>
                           </View>)
                       })}
                     </View>

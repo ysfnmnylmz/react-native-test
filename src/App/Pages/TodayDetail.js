@@ -29,29 +29,8 @@ const TodayDetail = (props) => {
     )
   }
   useEffect(() => {
-    loading || props.getData(match.competition_id).then(response => {
-      props.getTeams(match.competition_id)
-        .then(response => {
-          props.getMatches(match.competition_id)
-            .then(resp => setLoading(true))
-        });
-    });
-    teamsReducer.data && setTeams(teamsReducer.data)
-    away && matchesReducer.data.map((preMatch) => {
-      if (preMatch.status === 'complete') {
-        if (preMatch.game_week > (home.stats.seasonMatchesPlayed_overall - 5)) {
-          preMatch.homeID === home.id && setHomeprematches(prevState => [...prevState, preMatch]);
-          preMatch.awayID === home.id && setHomeprematches(prevState => [...prevState, preMatch]);
-        }
-        if (preMatch.game_week > (away.stats.seasonMatchesPlayed_overall - 5)) {
-          preMatch.homeID === away.id && setAwayprematches(prevState => [...prevState, preMatch]);
-          preMatch.awayID === away.id && setAwayprematches(prevState => [...prevState, preMatch]);
-        }
-      }
-    })
-
     AdMobInterstitial.setAdUnitID(insterstitialAdId);
-    AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true });
+    AdMobInterstitial.requestAdAsync({servePersonalizedAds: true});
     const ready = AdMobInterstitial.getIsReadyAsync();
     AdMobInterstitial.addEventListener('interstitialDidLoad',
       () => AdMobInterstitial.showAdAsync()
@@ -62,42 +41,75 @@ const TodayDetail = (props) => {
     );
 
     AdMobInterstitial.addEventListener('interstitialDidOpen',
-      () => setAdready(true)
-    );
+      () => console.log('did open'))
     AdMobInterstitial.addEventListener('interstitialDidClose',
       () => setAdready(true)
     );
     AdMobInterstitial.addEventListener('interstitialWillLeaveApplication',
       () => console.log('interstitialWillLeaveApplication')
     );
-
-  }, [loading,teamsReducer.data,matchesReducer.data, leaguesReducer.data, away, home])
+    loading || props.getData(match.competition_id).then(response => {
+      props.getTeams(match.competition_id)
+        .then(response => {
+          props.getMatches(match.competition_id)
+            .then(resp => setLoading(true))
+        });
+    })
+    teamsReducer.data && setTeams(teamsReducer.data)
+    away && matchesReducer.data.map((preMatch) => {
+        if (preMatch.status === 'complete') {
+          if (home.stats.seasonMatchesPlayed_overall - 5 > 0) {
+            if (preMatch.game_week > (home.stats.seasonMatchesPlayed_overall - 5)) {
+              preMatch.homeID === home.id && setHomeprematches(prevState => [...prevState, preMatch]);
+              preMatch.awayID === home.id && setHomeprematches(prevState => [...prevState, preMatch]);
+            }
+            if (preMatch.game_week > (away.stats.seasonMatchesPlayed_overall - 5)) {
+              preMatch.homeID === away.id && setAwayprematches(prevState => [...prevState, preMatch]);
+              preMatch.awayID === away.id && setAwayprematches(prevState => [...prevState, preMatch]);
+            }
+          } else {
+            if (preMatch.game_week <= (home.stats.seasonMatchesPlayed_overall)) {
+              preMatch.homeID === home.id && setHomeprematches(prevState => [...prevState, preMatch]);
+              preMatch.awayID === home.id && setHomeprematches(prevState => [...prevState, preMatch]);
+            }
+            if (preMatch.game_week <= (away.stats.seasonMatchesPlayed_overall)) {
+              preMatch.homeID === away.id && setAwayprematches(prevState => [...prevState, preMatch]);
+              preMatch.awayID === away.id && setAwayprematches(prevState => [...prevState, preMatch]);
+            }
+          }
+        }
+      }
+    );
+  }, [loading, teamsReducer.data, matchesReducer.data, leaguesReducer.data, away, home])
   if (home) {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Content contentContainerStyle={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Tabs locked={false} tabContainerStyle={{ height: 30 }} tabBarUnderlineStyle={{ height: 2 }} renderTabBar={() => <ScrollableTab />}>
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <Content contentContainerStyle={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          <Tabs locked={false} tabContainerStyle={{height: 30}} tabBarUnderlineStyle={{height: 2}}
+                renderTabBar={() => <ScrollableTab/>}>
             <Tab heading={home && home.name}>
-              <TeamTable team={home && home} league={leaguesReducer[0] && leaguesReducer[0]} />
+              <TeamTable team={home && home} league={leaguesReducer[0] && leaguesReducer[0]}/>
             </Tab>
             <Tab heading={away && away.name}>
-              <TeamTable team={away && away} league={leaguesReducer[0] && leaguesReducer[0]} />
+              <TeamTable team={away && away} league={leaguesReducer[0] && leaguesReducer[0]}/>
             </Tab>
           </Tabs>
         </Content>
-        <Content contentContainerStyle={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Tabs locked={true} tabBarUnderlineStyle={{ height: 2 }} renderTabBar={() => <ScrollableTab />}>
+        <Content contentContainerStyle={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          <Tabs locked={true} tabBarUnderlineStyle={{height: 2}} renderTabBar={() => <ScrollableTab/>}>
             <Tab heading="Aralarındaki Maçlar">
-              <PreviousResults id={match.id} home={home && home} away={away && away} match={match} />
+              <PreviousResults id={match.id} home={home && home} away={away && away} match={match}/>
             </Tab>
             <Tab heading="Özet İstatistikler">
-              <SummaryStats home={home && home} away={away && away} leagueData={leaguesReducer[0] && leaguesReducer[0]} />
+              <SummaryStats home={home && home} away={away && away}
+                            leagueData={leaguesReducer[0] && leaguesReducer[0]}/>
             </Tab>
             <Tab heading="Form">
-              <FormTab home={home && home} match={match} away={away && away} homePrematches={homePrematches} awayPrematches={awayPrematches} leagueData={leaguesReducer[0] && leaguesReducer[0]} />
+              <FormTab home={home && home} match={match} away={away && away} homePrematches={homePrematches}
+                       awayPrematches={awayPrematches} leagueData={leaguesReducer[0] && leaguesReducer[0]}/>
             </Tab>
             <Tab heading="Maç Beklentisi">
-              <MatchPotential home={home && home} match={match} away={away && away} />
+              <MatchPotential home={home && home} match={match} away={away && away}/>
             </Tab>
           </Tabs>
         </Content>
