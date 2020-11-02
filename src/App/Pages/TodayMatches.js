@@ -7,6 +7,7 @@ import {Loader} from "../Components/Common";
 import {AdMobBanner} from "expo-ads-admob";
 import * as Notifications from 'expo-notifications';
 import moment from "moment";
+import { Icon } from 'react-native-elements'
 
 const TodayMatches = (props) => {
   const [loading, setLoading] = useState(false)
@@ -56,6 +57,12 @@ const TodayMatches = (props) => {
 
                         ) : (
                           <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                            {match.score && <Icon
+                              name='star'
+                              type='font-awesome'
+                              color='#F0C238'
+                              size={15}
+                            />}
                             <Text note style={{fontSize: 10}}>{moment.unix(match.date_unix).format("DD MMMM")}</Text>
                             <Text note style={{fontSize: 12}}>{match.status === 'suspended' ? 'ERTELENDİ': moment.unix(match.date_unix).format('HH:mm') }</Text>
                           </View>

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View} from 'react-native';
+import {Button, View} from 'react-native';
 import {Content, Tab, Tabs, ScrollableTab} from 'native-base';
 import {SummaryStats, PreviousResults, FormTab, TeamTable, MatchPotential} from '../Components/Tabs'
 import {useStore, connect} from "react-redux";
@@ -94,6 +94,27 @@ const TodayDetail = (props) => {
               <TeamTable team={away && away} league={leaguesReducer[0] && leaguesReducer[0]}/>
             </Tab>
           </Tabs>
+          {match.score && (<View style={{
+            borderBottomLeftRadius: 35,
+            borderTopLeftRadius: 35,
+            position: 'absolute',
+            top: '15%',
+            alignSelf: 'flex-end',
+            height: 75,
+            width: 80,
+            backgroundColor: 'rgba(255,0,0,0.2)',
+          }}>
+            <View style={{
+              borderRadius: 35,
+              position: 'absolute',
+              top: 2,
+              alignSelf: 'flex-end',
+              height: 71,
+              width: 71,
+              left: 2,
+              backgroundColor: 'rgba(255,255,255,0.2)'
+            }}/>
+          </View>)}
         </Content>
         <Content contentContainerStyle={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
           <Tabs locked={true} tabBarUnderlineStyle={{height: 2}} renderTabBar={() => <ScrollableTab/>}>
