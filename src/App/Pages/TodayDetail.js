@@ -80,6 +80,8 @@ const TodayDetail = (props) => {
         }
       }
     );
+    homePrematches && homePrematches.filter(item => item)
+    awayPrematches && awayPrematches.filter(item => item)
   }, [loading, teamsReducer.data, matchesReducer.data, leaguesReducer.data, away, home])
   if (home) {
     return (
@@ -87,10 +89,10 @@ const TodayDetail = (props) => {
         <Content contentContainerStyle={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
           <Tabs locked={false} tabContainerStyle={{height: 30}} tabBarUnderlineStyle={{height: 2}}
                 renderTabBar={() => <ScrollableTab/>}>
-            <Tab heading={home && home.name}>
+            <Tab heading={match ? match.home_name : 'Evsahibi Takım'}>
               <TeamTable team={home && home} league={leaguesReducer[0] && leaguesReducer[0]}/>
             </Tab>
-            <Tab heading={away && away.name}>
+            <Tab heading={match ? match.away_name : 'Deplasman Takım'}>
               <TeamTable team={away && away} league={leaguesReducer[0] && leaguesReducer[0]}/>
             </Tab>
           </Tabs>

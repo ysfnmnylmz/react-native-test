@@ -5,7 +5,7 @@ const BASE_URL = 'http://85.95.240.192/api/';
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
-  timeout: 20000,
+  timeout: 35000,
 });
 
 axiosInstance.defaults.headers.common['Content-Type'] = 'application/json';

@@ -18,7 +18,18 @@ const TodayMatches = (props) => {
     const token =  (await Notifications.getDevicePushTokenAsync()).data
     console.log(token)
   }
+  const compare=(a, b)=> {
+    const bandA = a.date_unix;
+    const bandB = b.date_unix;
 
+    let comparison = 0;
+    if (bandA < bandB) {
+      comparison = -1;
+    } else if (bandA > bandB) {
+      comparison = 1;
+    }
+    return comparison;
+  }
   useEffect(() => {
     todayMatchesReducer.data || props.getTodayMatches().then(response => setLoading(true))
     console.log(getToken())
@@ -33,7 +44,7 @@ const TodayMatches = (props) => {
       <View style={{flex: 1, alignItems: 'stretch'}}>
         <Content contentContainerStyle={{justifyContent: 'center'}}>
           {todayMatchesReducer.data && (
-            todayMatchesReducer.data.map((match) => {
+            todayMatchesReducer.data.sort(compare).map((match) => {
               return (
                 <View key={match.id}>
                   <Card>

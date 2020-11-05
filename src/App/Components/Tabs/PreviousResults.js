@@ -42,7 +42,7 @@ const PreviousResults = (props) => {
   } else {
     return (
       <ScrollView>
-        {preMatches && preMatches.map((preMatch, i) => {
+        {preMatches ? preMatches.map((preMatch, i) => {
           if (i <= 9) {
             if (preMatch.team_a_id === home.id) {
               return (
@@ -118,7 +118,8 @@ const PreviousResults = (props) => {
               )
             }
           }
-        })}
+        }):
+          <Text>Bu maç için form bilgisi bulunmamaktadır.</Text>}
       </ScrollView>
     )
   }
