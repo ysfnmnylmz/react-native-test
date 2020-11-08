@@ -61,6 +61,12 @@ const TodayMatches = (props) => {
                         </View>
                         {match.status === 'complete' ? (
                           <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                            {match.score && <Icon
+                              name='star'
+                              type='font-awesome'
+                              color='#F0C238'
+                              size={15}
+                            />}
                             <Text note
                                   style={{fontSize: 10}}>{`${moment.unix(match.date_unix).format("DD MMMM")}`}</Text>
                             <Text note style={{fontSize: 12}}>{`${match.homeGoalCount} - ${match.awayGoalCount}`}</Text>

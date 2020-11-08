@@ -25,9 +25,6 @@ const Main = (props) => {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                {/*<Stack.Screen name='Reward'
-                              options={{title: <LeagueHeader data={{name_tr: 'Rewawrd'}}/>}}>{props =>
-                  <Reward {...props} />}</Stack.Screen>*/}
                 <Stack.Screen name='TodayMatches'
                               options={{title: <LeagueHeader data={{name_tr: 'Günün Maçları'}}/>}}>{props =>
                   <TodayMatches {...props} />}</Stack.Screen>
@@ -44,6 +41,8 @@ const Main = (props) => {
                     <HomeScreen {...props} />}</Stack.Screen>
                 <Stack.Screen name="Details" options={{title: <LeagueHeader data={{name_tr: 'Maç Detayı'}}/>}}>{props =>
                     <DetailsPage {...props} />}</Stack.Screen>
+                <Stack.Screen name='Reward' options={{title: <LeagueHeader data={{name_tr: 'Skor Tahmini'}}/>}}>{props =>
+                  <Reward {...props} />}</Stack.Screen>
             </Stack.Navigator>
             {/*{loading || <AnnouncementsAlert data={announcementsReducer.data}/>}*/}
         </NavigationContainer>

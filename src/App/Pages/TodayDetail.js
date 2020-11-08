@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, View} from 'react-native';
+import {Button, Image, TouchableOpacity, View} from 'react-native';
 import {Content, Tab, Tabs, ScrollableTab} from 'native-base';
 import {SummaryStats, PreviousResults, FormTab, TeamTable, MatchPotential} from '../Components/Tabs'
 import {useStore, connect} from "react-redux";
@@ -8,6 +8,7 @@ import {getMatches} from '../store/actions/GetMatches';
 import {getTeams} from '../store/actions/GetTeams';
 import {Loader} from "../Components/Common";
 import {AdMobInterstitial, AdMobBanner} from "expo-ads-admob";
+import scoreboard from '../../../assets/icons/scoreboard.png'
 
 const TodayDetail = (props) => {
   const [home, setHome] = useState(null)
@@ -96,27 +97,38 @@ const TodayDetail = (props) => {
               <TeamTable team={away && away} league={leaguesReducer[0] && leaguesReducer[0]}/>
             </Tab>
           </Tabs>
-          {match.score && (<View style={{
-            borderBottomLeftRadius: 35,
-            borderTopLeftRadius: 35,
-            position: 'absolute',
-            top: '15%',
-            alignSelf: 'flex-end',
-            height: 75,
-            width: 80,
-            backgroundColor: 'rgba(255,0,0,0.2)',
-          }}>
-            <View style={{
-              borderRadius: 35,
-              position: 'absolute',
-              top: 2,
-              alignSelf: 'flex-end',
-              height: 71,
-              width: 71,
-              left: 2,
-              backgroundColor: 'rgba(255,255,255,0.2)'
-            }}/>
-          </View>)}
+          {match.score && (
+              <View style={{
+                borderBottomLeftRadius: 50,
+                borderTopLeftRadius: 50,
+                position: 'absolute',
+                top: '15%',
+                alignSelf: 'flex-end',
+                height: 75,
+                width: 80,
+                borderWidth:1,
+                borderColor:'#333',
+                backgroundColor: 'rgba(0,0,0,0)',
+              }}>
+                <TouchableOpacity onPress={() => props.navigation.navigate('Reward', {
+                  match: match,
+                })}
+                  style={{
+                  borderRadius: 50,
+                  position: 'absolute',
+                  top: 0,
+                  alignSelf: 'flex-end',
+                  height: 70,
+                  width: 70,
+                  left: 0,
+                  backgroundColor: 'rgba(255,255,255,1)'
+                }}
+                >
+                  <Image source={scoreboard} style={{padding:1, borderWidth:1,
+                    borderColor:'#333',borderRadius:100,width:73, height:73}}/>
+                </TouchableOpacity>
+              </View>
+          )}
         </Content>
         <Content contentContainerStyle={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
           <Tabs locked={true} tabBarUnderlineStyle={{height: 2}} renderTabBar={() => <ScrollableTab/>}>
