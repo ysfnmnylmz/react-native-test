@@ -1,26 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import {View, Image, ScrollView} from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-
-
 import {Content, Card, CardItem, Body, Text} from 'native-base';
 import NumberStats from './NumberStats';
-
-import matchDetails from '../../../../fixtures/matchdetail';
 import {Loader} from "../Common";
-
+import * as Localization from 'expo-localization'
 const FormTab = ({homePrematches, awayPrematches, home, away, leagueData, match}) => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(false);
   }, [loading])
-
   const SwipeActions = (team, match) => {
     return (
       <NumberStats team={team} match={match} styles={styles}/>
     )
   }
-
   if (loading) {
     return (
       <Loader/>
@@ -45,7 +39,7 @@ const FormTab = ({homePrematches, awayPrematches, home, away, leagueData, match}
                             style={String(preMatch.winningTeam) === String(home.id).substring(0, String(home.id).length - 4) ? styles.win : preMatch.winningTeam == "-1" ? styles.draw : styles.lost}
                             key={String(i)}>
                             <Text
-                              style={styles.textStyle}>{preMatch.winningTeam == "-1" ? "B" : String(preMatch.winningTeam) === String(home.id).substring(0, String(home.id).length - 4) ? "G" : "M"}</Text>
+                              style={styles.textStyle}>{preMatch.winningTeam == "-1" ?Localization.locale === 'tr-TR' ?"B":'D' : String(preMatch.winningTeam) === String(home.id).substring(0, String(home.id).length - 4) ?Localization.locale === 'tr-TR' ?"G":'W':Localization.locale === 'tr-TR' ?"M":'L'}</Text>
                           </View>
                         )
                       })}
@@ -89,7 +83,7 @@ const FormTab = ({homePrematches, awayPrematches, home, away, leagueData, match}
                             style={String(preMatch.winningTeam) === String(away.id).substring(0, String(away.id).length - 4) ? styles.win : preMatch.winningTeam == "-1" ? styles.draw : styles.lost}
                             key={String(i)}>
                             <Text
-                              style={styles.textStyle}>{preMatch.winningTeam == "-1" ? "B" : String(preMatch.winningTeam) === String(away.id).substring(0, String(away.id).length - 4) ? "G" : "M"}</Text>
+                              style={styles.textStyle}>{preMatch.winningTeam == "-1" ?Localization.locale === 'tr-TR' ?"B":'D' : String(preMatch.winningTeam) === String(home.id).substring(0, String(home.id).length - 4) ?Localization.locale === 'tr-TR' ?"G":'W':Localization.locale === 'tr-TR' ?"M":'L'}</Text>
                           </View>)
                       })}
                     </View>

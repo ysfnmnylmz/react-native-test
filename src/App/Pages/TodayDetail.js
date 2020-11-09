@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Image, TouchableOpacity, View} from 'react-native';
+import {Image, TouchableOpacity, View} from 'react-native';
 import {Content, Tab, Tabs, ScrollableTab} from 'native-base';
 import {SummaryStats, PreviousResults, FormTab, TeamTable, MatchPotential} from '../Components/Tabs'
 import {useStore, connect} from "react-redux";
@@ -9,6 +9,7 @@ import {getTeams} from '../store/actions/GetTeams';
 import {Loader} from "../Components/Common";
 import {AdMobInterstitial, AdMobBanner} from "expo-ads-admob";
 import scoreboard from '../../../assets/icons/scoreboard.png'
+import * as Localization from 'expo-localization'
 
 const TodayDetail = (props) => {
   const [home, setHome] = useState(null)
@@ -132,10 +133,10 @@ const TodayDetail = (props) => {
         </Content>
         <Content contentContainerStyle={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
           <Tabs locked={true} tabBarUnderlineStyle={{height: 2}} renderTabBar={() => <ScrollableTab/>}>
-            <Tab heading="Aralarındaki Maçlar">
+            <Tab heading={Localization.locale === 'tr-TR' ? 'Aralarındaki Maçlar' : 'Between Matches'}>
               <PreviousResults id={match.id} home={home && home} away={away && away} match={match}/>
             </Tab>
-            <Tab heading="Özet İstatistikler">
+            <Tab heading={Localization.locale === 'tr-TR' ? 'Özet İstatistikler' : 'Summary Stats'}>
               <SummaryStats home={home && home} away={away && away}
                             leagueData={leaguesReducer[0] && leaguesReducer[0]}/>
             </Tab>
@@ -143,8 +144,8 @@ const TodayDetail = (props) => {
               <FormTab home={home && home} match={match} away={away && away} homePrematches={homePrematches}
                        awayPrematches={awayPrematches} leagueData={leaguesReducer[0] && leaguesReducer[0]}/>
             </Tab>
-            <Tab heading="Maç Beklentisi">
-              <MatchPotential home={home && home} match={match} away={away && away}/>
+            <Tab heading={Localization.locale === 'tr-TR' ? 'Maç Beklentisi' : 'Match Potential'}>
+              <MatchPotential match={match}/>
             </Tab>
           </Tabs>
         </Content>

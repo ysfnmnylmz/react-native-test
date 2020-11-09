@@ -1,14 +1,15 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 import { Content, Card, CardItem, Body, Text } from 'native-base';
+import * as Localization from "expo-localization";
 
-const MatchPotential = ({ home, away, match })=> {
+const MatchPotential = ({ match })=> {
     return (
         <ScrollView>
             <Content contentContainerStyle={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
                 <Card style={{ width: '32%' }}>
                     <CardItem header style={{ backgroundColor: '#333', height: 15 }}>
-                        <Text style={{ fontSize: 12, color: 'white' }}>0.5 Üstü</Text>
+                        <Text style={{ fontSize: 12, color: 'white' }}>{Localization.locale === 'tr-TR' ? '0.5 Üstü' : 'Over 0.5'}</Text>
                     </CardItem>
                     <CardItem>
                         <Body>
@@ -20,7 +21,7 @@ const MatchPotential = ({ home, away, match })=> {
                 </Card>
                 <Card style={{ width: '32%' }}>
                     <CardItem header style={{ backgroundColor: '#333', height: 15 }}>
-                        <Text style={{ fontSize: 12, color: 'white' }}>1.5 Üstü</Text>
+                        <Text style={{ fontSize: 12, color: 'white' }}>{Localization.locale === 'tr-TR' ? '1.5 Üstü' : 'Over 1.5'}</Text>
                     </CardItem>
                     <CardItem>
                         <Body>
@@ -32,7 +33,7 @@ const MatchPotential = ({ home, away, match })=> {
                 </Card>
                 <Card style={{ width: '32%' }}>
                     <CardItem header style={{ backgroundColor: '#333', height: 15 }}>
-                        <Text style={{ fontSize: 12, color: 'white' }}>2.5 Üstü</Text>
+                        <Text style={{ fontSize: 12, color: 'white' }}>{Localization.locale === 'tr-TR' ? '2.5 Üstü' : 'Over 2.5'}</Text>
                     </CardItem>
                     <CardItem>
                         <Body>
@@ -44,7 +45,7 @@ const MatchPotential = ({ home, away, match })=> {
                 </Card>
                 <Card style={{ width: '32%' }}>
                     <CardItem header style={{ backgroundColor: '#333', height: 15 }}>
-                        <Text style={{ fontSize: 12, color: 'white' }}>İY 0.5 Üstü</Text>
+                        <Text style={{ fontSize: 12, color: 'white' }}>{Localization.locale === 'tr-TR' ? 'İY 0.5 Üstü' : 'FH Over 0.5'}</Text>
                     </CardItem>
                     <CardItem>
                         <Body>
@@ -56,7 +57,7 @@ const MatchPotential = ({ home, away, match })=> {
                 </Card>
                 <Card style={{ width: '32%' }}>
                     <CardItem header style={{ backgroundColor: '#333', height: 15 }}>
-                        <Text style={{ fontSize: 12, color: 'white' }}>İY 1.5 Üstü</Text>
+                        <Text style={{ fontSize: 12, color: 'white' }}>{Localization.locale === 'tr-TR' ? 'İY 1.5 Üstü' : 'FH Over 1.5'}</Text>
                     </CardItem>
                     <CardItem>
                         <Body>
@@ -68,7 +69,7 @@ const MatchPotential = ({ home, away, match })=> {
                 </Card>
                 <Card style={{ width: '32%' }}>
                 <CardItem header style={{ backgroundColor: '#333', height: 15 }}>
-                    <Text style={{ fontSize: 12, color: 'white' }}>Karşılıklı Gol</Text>
+                    <Text style={{ fontSize: 12, color: 'white' }}>{Localization.locale === 'tr-TR' ? 'Karşılıklı Gol' : 'BTTS'}</Text>
                 </CardItem>
                 <CardItem>
                     <Body>
@@ -80,7 +81,7 @@ const MatchPotential = ({ home, away, match })=> {
             </Card>
                 <Card style={{ width: '48%' }}>
                     <CardItem header style={{ backgroundColor: '#333', height: 15 }}>
-                        <Text style={{ fontSize: 12, color: 'white' }}>Korner Beklentisi</Text>
+                        <Text style={{ fontSize: 12, color: 'white' }}>{Localization.locale === 'tr-TR' ? 'Korner Beklentisi' : 'Corners Potential'}</Text>
                     </CardItem>
                     <CardItem>
                         <Body>
@@ -92,7 +93,7 @@ const MatchPotential = ({ home, away, match })=> {
                 </Card>
                 <Card style={{ width: '48%' }}>
                     <CardItem header style={{ backgroundColor: '#333', height: 15 }}>
-                        <Text style={{ fontSize: 12, color: 'white' }}>Kart Beklentisi</Text>
+                        <Text style={{ fontSize: 12, color: 'white' }}>{Localization.locale === 'tr-TR' ? 'Kart Beklentisi' : 'Cards Potential'}</Text>
                     </CardItem>
                     <CardItem>
                         <Body>

@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Image, Text, TouchableOpacity, View} from "react-native";
 import {AdMobRewarded} from "expo-ads-admob";
-import {Loader} from "./Common";
 import scoreboard from "../../../assets/icons/scoreboard.png";
+import * as Localization from "expo-localization";
 
 const Reward = (props) => {
   const [reward, setReward] = useState(false)
   const [closed, setClosed] = useState(false)
   const {match} = props.route.params
   const showRewarded = async () => {
-    await AdMobRewarded.setAdUnitID('ca-app-pub-3940256099942544/5224354917'); // Test ID, Replace with your-admob-unit-id
+    await AdMobRewarded.setAdUnitID('ca-app-pub-4742367558871759/4723104251'); // Test ID, Replace with your-admob-unit-id
     await AdMobRewarded.requestAdAsync({servePersonalizedAds: true});
     await AdMobRewarded.showAdAsync();
   }
@@ -24,14 +24,16 @@ const Reward = (props) => {
       </View>
       <View style={styles.board}>
         <Text
-          style={{textAlign: 'center'}}>{`${match.home_name} ve ${match.away_name} arasında yapılacak olan maç için skor tahminimizdir.`}</Text>
+          style={{textAlign: 'center'}}>{Localization.locale === 'tr-TR' ?`${match.home_name} ve ${match.away_name} arasında yapılacak olan maç için skor tahminimizdir.`: `It is our score prediction for the match between ${match.home_name} and ${match.away_name}.`}</Text>
       </View>
     </>)
   const isNotReward = () =>
     (<>
       <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
         <Text>
-          Skor tahminimizi görebilmek için yan tarafta bulunan alana tıklayarak çıkan reklamı izlemeniz gerekmektedir.
+          {Localization.locale === 'tr-TR' ?
+            'Skor tahminimizi görebilmek için yan tarafta bulunan alana tıklayarak çıkan reklamı izlemeniz gerekmektedir.' :
+            'In order to see our score estimation, you need to watch the ad that appears by clicking the field on the side.'}
         </Text>
         <View style={{
           borderBottomLeftRadius: 50,

@@ -8,16 +8,22 @@ import {AdMobBanner} from "expo-ads-admob";
 import * as Notifications from 'expo-notifications';
 import moment from "moment";
 import { Icon } from 'react-native-elements'
+import * as Localization from 'expo-localization';
+
+
+moment.locale(Localization.locale.substring(0,2))
+
 
 const TodayMatches = (props) => {
   const [loading, setLoading] = useState(false)
   const store = useStore();
   const bannerAdd = 'ca-app-pub-4742367558871759/4679018010'
-  const {leaguesReducer, matchesReducer, teamsReducer, todayMatchesReducer} = store.getState()
+  const {todayMatchesReducer} = store.getState()
   const getToken= async ()=>{
     const token =  (await Notifications.getDevicePushTokenAsync()).data
     console.log(token)
   }
+
   const compare=(a, b)=> {
     const bandA = a.date_unix;
     const bandB = b.date_unix;
@@ -81,7 +87,7 @@ const TodayMatches = (props) => {
                               size={15}
                             />}
                             <Text note style={{fontSize: 10}}>{moment.unix(match.date_unix).format("DD MMMM")}</Text>
-                            <Text note style={{fontSize: 12}}>{match.status === 'suspended' ? 'ERTELENDİ': moment.unix(match.date_unix).format('HH:mm') }</Text>
+                            <Text note style={{fontSize: 12}}>{match.status === 'suspended' ? Localization.locale === 'tr-TR'?'ERTELENDİ':'SUSPENDED': moment.unix(match.date_unix).format('HH:mm') }</Text>
                           </View>
                         )}
                         <View style={{flex: 1, flexDirection: 'row'}}>
@@ -101,8 +107,8 @@ const TodayMatches = (props) => {
         </Content>
         <AdMobBanner
           bannerSize="smartBannerPortrait"
-          adUnitID={bannerAdd} // Test ID, Replace with your-admob-unit-id
-          servePersonalizedAds={true} // true or false
+          adUnitID={bannerAdd}
+          servePersonalizedAds={true}
         />
       </View>
     )
