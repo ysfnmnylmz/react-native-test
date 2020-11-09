@@ -11,18 +11,15 @@ import { Icon } from 'react-native-elements'
 import * as Localization from 'expo-localization';
 
 
-moment.locale(Localization.locale.substring(0,2))
-
-
 const TodayMatches = (props) => {
+  moment.locale(Localization.locale.substring(0,2))
   const [loading, setLoading] = useState(false)
   const store = useStore();
   const bannerAdd = 'ca-app-pub-4742367558871759/4679018010'
   const {todayMatchesReducer} = store.getState()
-  const getToken= async ()=>{
+  /*const getToken= async ()=>{
     const token =  (await Notifications.getDevicePushTokenAsync()).data
-    console.log(token)
-  }
+  }*/
 
   const compare=(a, b)=> {
     const bandA = a.date_unix;
@@ -38,7 +35,6 @@ const TodayMatches = (props) => {
   }
   useEffect(() => {
     todayMatchesReducer.data || props.getTodayMatches().then(response => setLoading(true))
-    console.log(getToken())
   }, [])
 
   if (!loading) {

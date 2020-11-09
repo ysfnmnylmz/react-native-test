@@ -1,10 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import 'react-native-gesture-handler';
 import {createStackNavigator} from '@react-navigation/stack';
 import {connect} from 'react-redux';
-
-import {HomeScreen, DetailsPage, SelectCountry, SelectLeague} from './index'
 
 import {LeagueHeader} from '../Components/Common';
 
@@ -19,7 +17,6 @@ import * as Localization from 'expo-localization';
 const Stack = createStackNavigator();
 
 const Main = (props) => {
-  /*const store = useStore();*/
   useEffect(() => {
     // props.getAnnouncements({active:'true', date:moment().format('YYYY-MM-DD')}).then(response => setLoading(false))
   }, [])
@@ -32,23 +29,11 @@ const Main = (props) => {
                         title: <LeagueHeader data={{name_tr:Localization.locale === 'tr-TR' ? 'Günün Maçları': 'Today Matches'}}/>
                       }}>{props =>
           <TodayMatches {...props} />}</Stack.Screen>
-        <Stack.Screen name='SelectCountry'
-                      options={{title: <LeagueHeader data={{name_tr: 'Ülke Seçiniz'}}/>}}>{props =>
-          <SelectCountry {...props} />}</Stack.Screen>
         <Stack.Screen name='MatchDetail'
                       options={{
                         title: <LeagueHeader data={{name_tr: Localization.locale === 'tr-TR' ? 'Maç Detayı': 'Match Detail'}}/>
                       }}>{props =>
           <TodayDetail {...props} />}</Stack.Screen>
-        <Stack.Screen name='SelectLeague'
-                      options={{title: <LeagueHeader data={{name_tr: 'Lig Seçiniz'}}/>}}>{props =>
-          <SelectLeague {...props} />}</Stack.Screen>
-        <Stack.Screen name="Home" options={{title: <LeagueHeader data={{name_tr: 'Maçlar'}}/>}}>{props =>
-          <HomeScreen {...props} />}</Stack.Screen>
-        <Stack.Screen name="Details" options={{
-          title: <LeagueHeader data={{name_tr: Localization.locale === 'tr-TR' ? 'Maç Detayı': 'Match Detail'}}/>
-        }}>{props =>
-          <DetailsPage {...props} />}</Stack.Screen>
         <Stack.Screen name='Reward'
                       options={{title: <LeagueHeader data={{name_tr: Localization.locale === 'tr-TR' ? 'Skor Tahmini': 'Score Prediction'}}/>}}>{props =>
           <Reward {...props} />}</Stack.Screen>
