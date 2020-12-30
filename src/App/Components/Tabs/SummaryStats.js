@@ -92,7 +92,7 @@ const SummaryStats = ({home, away, leagueData}) => {
                     fontWeight: 'bold'
                   }}>{`${String((parseFloat(home.stats.seasonAVG_overall) + parseFloat(away.stats.seasonAVG_overall)) / 2).substring(0, 4)}`}</Text>
                   <Text
-                    style={{fontSize: 12}}>{`${Localization.locale === 'tr-TR' ? `Lig Ort.: ${leagueData.seasonAVG_overall}%`
+                    style={{fontSize: 12}}>{`${Localization.locale === 'tr-TR' ? `Lig Ort.: ${leagueData.seasonAVG_overall}`
                     : `League Avg.: ${leagueData.seasonAVG_overall}%`}`}</Text>
                 </View>
               </Body>

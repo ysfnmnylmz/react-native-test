@@ -58,7 +58,7 @@ const TodayDetail = (props) => {
         });
     })
     teamsReducer.data && setTeams(teamsReducer.data)
-    away && matchesReducer.data.map((preMatch) => {
+    matchesReducer.data && away && matchesReducer.data.map((preMatch) => {
         if (preMatch.status === 'complete') {
           if (home.stats.seasonMatchesPlayed_overall - 5 > 0) {
             if (preMatch.game_week > (home.stats.seasonMatchesPlayed_overall - 5)) {

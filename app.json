@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "Soccer Statistics",
-    "slug": "soccer-statistics",
+    "name": "Maçmatik",
+    "slug": "matchmatic",
     "platforms": [
       "ios",
       "android",
       "web"
     ],
-    "version": "1.3.2",
+    "version": "1.4",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
     "notification": {
@@ -31,7 +31,8 @@
     "android": {
       "package": "com.ysfnmnylmz.soccerstatistics",
       "googleServicesFile": "./google-services.json",
-      "versionCode": 7,
+      "versionCode": 9,
+      "permissions": [],
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-4742367558871759~2201198950"
       }

@@ -7,15 +7,18 @@ import * as Localization from "expo-localization";
 
 
 const TeamTable = ({team, league}) => {
+  console.log(team.stats)
   let headData = Localization.locale === 'tr-TR' ? ['İstatistikler', 'Toplam', 'Evinde', 'Deplasmanda']:['Statistics', 'Total', 'Home', 'Away']
   let dataTable = [
-    [Localization.locale==='tr-TR' ? 'Kazandı(%)' : 'Win(%)', team.stats.winPercentage_overall, team.stats.winPercentage_home, team.stats.winPercentage_away],
+    [Localization.locale==='tr-TR' ? 'Kazandı' : 'Win', team.stats.seasonWinsNum_overall, team.stats.seasonWinsNum_home, team.stats.seasonWinsNum_away],
+    [Localization.locale==='tr-TR' ? 'Berabere' : 'Draw', team.stats.seasonDrawsNum_overall, team.stats.seasonDrawsNum_home, team.stats.seasonDrawsNum_away],
+    [Localization.locale==='tr-TR' ? 'Yenildi' : 'Lose', team.stats.seasonLossesNum_overall, team.stats.seasonLossesNum_home, team.stats.seasonLossesNum_away],
     [Localization.locale==='tr-TR' ?'Toplam Gol Ort.': 'Goal Avg.', team.stats.seasonAVG_overall, team.stats.seasonAVG_home, team.stats.seasonAVG_away],
     [Localization.locale==='tr-TR' ?'A. Gol Ort.': 'Goal Scored Avg.', team.stats.seasonScoredAVG_overall, team.stats.seasonScoredAVG_home, team.stats.seasonScoredAVG_away],
     [Localization.locale==='tr-TR' ?'Y. Gol Ort.': 'Goal Conceded Avg.', team.stats.seasonConcededAVG_overall, team.stats.seasonConcededAVG_home, team.stats.seasonConcededAVG_away],
-    [Localization.locale==='tr-TR' ?'KG Var(%)': 'BTTS(%)', team.stats.seasonBTTSPercentage_overall, team.stats.seasonBTTSPercentage_home, team.stats.seasonBTTSPercentage_away],
-    [Localization.locale==='tr-TR' ?'G. Yemediği(%)': 'Clean Sheet(%)', team.stats.seasonCSPercentage_overall, team.stats.seasonCSPercentage_home, team.stats.seasonCSPercentage_away],
-    [Localization.locale==='tr-TR' ?'G. Atamadığı(%)': 'Failed to Score(%)', team.stats.seasonFTSPercentage_overall, team.stats.seasonFTSPercentage_home, team.stats.seasonFTSPercentage_away],
+    [Localization.locale==='tr-TR' ?'KG Var': 'BTTS', team.stats.seasonBTTS_overall, team.stats.seasonBTTS_home, team.stats.seasonBTTS_away],
+    [Localization.locale==='tr-TR' ?'G. Yemediği': 'Clean Sheet', team.stats.seasonCS_overall, team.stats.seasonCS_home, team.stats.seasonCS_away],
+    [Localization.locale==='tr-TR' ?'G. Atamadığı': 'Failed to Score', team.stats.seasonFTS_overall, team.stats.seasonFTS_home, team.stats.seasonFTS_away],
     ['xG', team.stats.xg_for_avg_overall, team.stats.xg_for_avg_home, team.stats.xg_for_avg_away],
     ['xGY', team.stats.xg_against_avg_overall, team.stats.xg_against_avg_home, team.stats.xg_against_avg_away]
   ];

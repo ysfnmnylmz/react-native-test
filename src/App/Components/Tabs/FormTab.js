@@ -5,6 +5,7 @@ import {Content, Card, CardItem, Body, Text} from 'native-base';
 import NumberStats from './NumberStats';
 import {Loader} from "../Common";
 import * as Localization from 'expo-localization'
+
 const FormTab = ({homePrematches, awayPrematches, home, away, leagueData, match}) => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -34,31 +35,35 @@ const FormTab = ({homePrematches, awayPrematches, home, away, leagueData, match}
                     <Image style={{width: 50, height: 50}} source={{uri: `${home.image}`}}/>
                     <View style={{flex: 1, flexDirection: 'row', marginBottom: 25}}>
                       {homePrematches.map((preMatch, i) => {
-                        return (
-                          <View
-                            style={String(preMatch.winningTeam) === String(home.id).substring(0, String(home.id).length - 4) ? styles.win : preMatch.winningTeam == "-1" ? styles.draw : styles.lost}
-                            key={String(i)}>
-                            <Text
-                              style={styles.textStyle}>{preMatch.winningTeam == "-1" ?Localization.locale === 'tr-TR' ?"B":'D' : String(preMatch.winningTeam) === String(home.id).substring(0, String(home.id).length - 4) ?Localization.locale === 'tr-TR' ?"G":'W':Localization.locale === 'tr-TR' ?"M":'L'}</Text>
-                          </View>
-                        )
+                        if (i < 5) {
+                          return (
+                            <View
+                              style={String(preMatch.winningTeam) === String(home.id).substring(0, String(home.id).length - 4) ? styles.win : preMatch.winningTeam == "-1" ? styles.draw : styles.lost}
+                              key={String(i)}>
+                              <Text
+                                style={styles.textStyle}>{preMatch.winningTeam == "-1" ? Localization.locale === 'tr-TR' ? "B" : 'D' : String(preMatch.winningTeam) === String(home.id).substring(0, String(home.id).length - 4) ? Localization.locale === 'tr-TR' ? "G" : 'W' : Localization.locale === 'tr-TR' ? "M" : 'L'}</Text>
+                            </View>
+                          )
+                        }
                       })}
                     </View>
                     {homePrematches.map((prevMatch, i) => {
-                      return (
-                        <View style={styles.row} key={String(i)}>
-                          <Image style={styles.prevMatchImage}
-                                 source={{uri: `https://cdn.footystats.org/img/${prevMatch.home_image}`}}/>
-                          <View style={styles.column}>
-                            <Text
-                              style={styles.FtimeScore}>{`${prevMatch.homeGoalCount} - ${prevMatch.awayGoalCount}`}</Text>
-                            <Text
-                              style={styles.HtimeScore}>{`${prevMatch.ht_goals_team_a} - ${prevMatch.ht_goals_team_b}`}</Text>
+                      if (i < 5) {
+                        return (
+                          <View style={styles.row} key={String(i)}>
+                            <Image style={styles.prevMatchImage}
+                                   source={{uri: `https://cdn.footystats.org/img/${prevMatch.home_image}`}}/>
+                            <View style={styles.column}>
+                              <Text
+                                style={styles.FtimeScore}>{`${prevMatch.homeGoalCount} - ${prevMatch.awayGoalCount}`}</Text>
+                              <Text
+                                style={styles.HtimeScore}>{`${prevMatch.ht_goals_team_a} - ${prevMatch.ht_goals_team_b}`}</Text>
+                            </View>
+                            <Image style={styles.prevMatchImage}
+                                   source={{uri: `https://cdn.footystats.org/img/${prevMatch.away_image}`}}/>
                           </View>
-                          <Image style={styles.prevMatchImage}
-                                 source={{uri: `https://cdn.footystats.org/img/${prevMatch.away_image}`}}/>
-                        </View>
-                      )
+                        )
+                      }
                     })}
                   </View>
                 </Body>
@@ -78,30 +83,34 @@ const FormTab = ({homePrematches, awayPrematches, home, away, leagueData, match}
                     <Image style={{width: 50, height: 50}} source={{uri: `${away.image}`}}/>
                     <View style={{flex: 1, flexDirection: 'row', marginBottom: 25}}>
                       {awayPrematches.map((preMatch, i) => {
-                        return (
-                          <View
-                            style={String(preMatch.winningTeam) === String(away.id).substring(0, String(away.id).length - 4) ? styles.win : preMatch.winningTeam == "-1" ? styles.draw : styles.lost}
-                            key={String(i)}>
-                            <Text
-                              style={styles.textStyle}>{preMatch.winningTeam == "-1" ?Localization.locale === 'tr-TR' ?"B":'D' : String(preMatch.winningTeam) === String(home.id).substring(0, String(home.id).length - 4) ?Localization.locale === 'tr-TR' ?"G":'W':Localization.locale === 'tr-TR' ?"M":'L'}</Text>
-                          </View>)
+                        if (i < 5) {
+                          return (
+                            <View
+                              style={String(preMatch.winningTeam) === String(away.id).substring(0, String(away.id).length - 4) ? styles.win : preMatch.winningTeam == "-1" ? styles.draw : styles.lost}
+                              key={String(i)}>
+                              <Text
+                                style={styles.textStyle}>{preMatch.winningTeam == "-1" ? Localization.locale === 'tr-TR' ? "B" : 'D' : String(preMatch.winningTeam) === String(home.id).substring(0, String(home.id).length - 4) ? Localization.locale === 'tr-TR' ? "G" : 'W' : Localization.locale === 'tr-TR' ? "M" : 'L'}</Text>
+                            </View>)
+                        }
                       })}
                     </View>
                     {awayPrematches.map((prevMatch, i) => {
-                      return (
-                        <View style={styles.row} key={String(i)}>
-                          <Image style={styles.prevMatchImage}
-                                 source={{uri: `https://cdn.footystats.org/img/${prevMatch.home_image}`}}/>
-                          <View style={styles.column}>
-                            <Text
-                              style={styles.FtimeScore}>{`${prevMatch.homeGoalCount} - ${prevMatch.awayGoalCount}`}</Text>
-                            <Text
-                              style={styles.HtimeScore}>{`${prevMatch.ht_goals_team_a} - ${prevMatch.ht_goals_team_b}`}</Text>
+                      if (i < 5) {
+                        return (
+                          <View style={styles.row} key={String(i)}>
+                            <Image style={styles.prevMatchImage}
+                                   source={{uri: `https://cdn.footystats.org/img/${prevMatch.home_image}`}}/>
+                            <View style={styles.column}>
+                              <Text
+                                style={styles.FtimeScore}>{`${prevMatch.homeGoalCount} - ${prevMatch.awayGoalCount}`}</Text>
+                              <Text
+                                style={styles.HtimeScore}>{`${prevMatch.ht_goals_team_a} - ${prevMatch.ht_goals_team_b}`}</Text>
+                            </View>
+                            <Image style={styles.prevMatchImage}
+                                   source={{uri: `https://cdn.footystats.org/img/${prevMatch.away_image}`}}/>
                           </View>
-                          <Image style={styles.prevMatchImage}
-                                 source={{uri: `https://cdn.footystats.org/img/${prevMatch.away_image}`}}/>
-                        </View>
-                      )
+                        )
+                      }
                     })}
                   </View>
                 </Body>
