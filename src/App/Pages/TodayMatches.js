@@ -1,27 +1,33 @@
 import React, {useEffect, useState} from 'react';
-import {View, Image, Button, TouchableOpacity} from 'react-native';
-import {useStore, connect} from 'react-redux';
-import {Content, Card, CardItem, Body, Text} from 'native-base';
+import {Image, TouchableOpacity, View} from 'react-native';
+import {connect, useStore} from 'react-redux';
+import {Body, Card, CardItem, Content, ScrollableTab, Tab, Tabs, Text} from 'native-base';
 import {getTodayMatches} from "../store/actions/GetTodayMatches";
+import {getOtherDaysMatches} from "../store/actions/OtherDaysMatches";
 import {Loader} from "../Components/Common";
 import {AdMobBanner} from "expo-ads-admob";
-import * as Notifications from 'expo-notifications';
 import moment from "moment";
-import { Icon } from 'react-native-elements'
+import {Icon} from 'react-native-elements'
 import * as Localization from 'expo-localization';
 
 
 const TodayMatches = (props) => {
-  moment.locale(Localization.locale.substring(0,2))
+  moment.locale(Localization.locale.substring(0, 2))
   const [loading, setLoading] = useState(false)
   const store = useStore();
   const bannerAdd = 'ca-app-pub-4742367558871759/4679018010'
-  const {todayMatchesReducer} = store.getState()
+  const {todayMatchesReducer, otherDaysMatchesReducer} = store.getState()
   /*const getToken= async ()=>{
     const token =  (await Notifications.getDevicePushTokenAsync()).data
   }*/
-
-  const compare=(a, b)=> {
+  const returnDay = (day) => moment().add(day, "days").format('YYYY-MM-DD')
+  const returnOtherMatches= async day=> {
+    await props.getOtherDaysMatches(returnDay(day))
+    await props.getOtherDaysMatches(returnDay(day+1))
+    await props.getOtherDaysMatches(returnDay(day+3))
+    await props.getOtherDaysMatches(returnDay(day+4))
+  }
+  const compare = (a, b) => {
     const bandA = a.date_unix;
     const bandB = b.date_unix;
 
@@ -34,7 +40,9 @@ const TodayMatches = (props) => {
     return comparison;
   }
   useEffect(() => {
-    todayMatchesReducer.data || props.getTodayMatches().then(response => setLoading(true))
+    todayMatchesReducer.data || props.getTodayMatches()
+      .then(response => setLoading(true))
+    returnOtherMatches(-2)
   }, [])
 
   if (!loading) {
@@ -44,62 +52,324 @@ const TodayMatches = (props) => {
   } else {
     return (
       <View style={{flex: 1, alignItems: 'stretch'}}>
-        <Content contentContainerStyle={{justifyContent: 'center'}}>
-          {todayMatchesReducer.data && (
-            todayMatchesReducer.data.sort(compare).map((match) => {
-              return (
-                <View key={match.id}>
-                  <Card>
-                    <TouchableOpacity onPress={() => props.navigation.navigate('MatchDetail', {
-                      match: match,
-                    })}>
-                      <CardItem style={styles.matchCard}>
-                        <View style={{flex: 1, flexDirection: 'row'}}>
-                          <Image style={styles.teamLogo}
-                                 source={{uri: `https://cdn.footystats.org/img/${match.home_image}`}}/>
-                          <Body>
-                            <Text style={styles.teamName}>{match.home_name}</Text>
-                          </Body>
-                        </View>
-                        {match.status === 'complete' ? (
-                          <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                            {match.score && <Icon
-                              name='star'
-                              type='font-awesome'
-                              color='#F0C238'
-                              size={15}
-                            />}
-                            <Text note
-                                  style={{fontSize: 10}}>{`${moment.unix(match.date_unix).format("DD MMMM")}`}</Text>
-                            <Text note style={{fontSize: 12}}>{`${match.homeGoalCount} - ${match.awayGoalCount}`}</Text>
-                          </View>
+        <Content
+          contentContainerStyle={{justifyContent: 'center'}}>
+          <Tabs
+            initialPage={2}
+            tabBarPosition={'top'}
+            locked={false}
+            tabContainerStyle={{height: 30}}
+            tabBarUnderlineStyle={{height: 1}}
+            renderTabBar={() => <ScrollableTab/>}>
+            <Tab heading={moment().add(-2, "days").format('DD MMMM')}>
+              {otherDaysMatchesReducer.data && (
+                otherDaysMatchesReducer.data.sort(compare).map((match) => {
+                  if (match.match_date === returnDay(-2)) {
+                    return (
+                      <View key={match.id}>
+                        <Card>
+                          <TouchableOpacity onPress={() => props.navigation.navigate('MatchDetail', {
+                            match: match,
+                          })}>
+                            <CardItem style={styles.matchCard}>
+                              <View style={{flex: 1, flexDirection: 'row'}}>
+                                <Image style={styles.teamLogo}
+                                       source={{uri: `https://cdn.footystats.org/img/${match.home_image}`}}/>
+                                <Body>
+                                  <Text style={styles.teamName}>{match.home_name}</Text>
+                                </Body>
+                              </View>
+                              {match.status === 'complete' ? (
+                                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                                  {match.score && <Icon
+                                    name='star'
+                                    type='font-awesome'
+                                    color='#F0C238'
+                                    size={15}
+                                  />}
+                                  <Text note
+                                        style={{fontSize: 10}}>{`${moment.unix(match.date_unix).format("DD MMMM")}`}</Text>
+                                  <Text note
+                                        style={{fontSize: 12}}>{`${match.homeGoalCount} - ${match.awayGoalCount}`}</Text>
+                                </View>
 
-                        ) : (
-                          <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                            {match.score && <Icon
-                              name='star'
-                              type='font-awesome'
-                              color='#F0C238'
-                              size={15}
-                            />}
-                            <Text note style={{fontSize: 10}}>{moment.unix(match.date_unix).format("DD MMMM")}</Text>
-                            <Text note style={{fontSize: 12}}>{match.status === 'suspended' ? Localization.locale === 'tr-TR'?'ERTELENDİ':'SUSPENDED': moment.unix(match.date_unix).format('HH:mm') }</Text>
-                          </View>
-                        )}
-                        <View style={{flex: 1, flexDirection: 'row'}}>
-                          <Body>
-                            <Text style={styles.teamName}>{match.away_name}</Text>
-                          </Body>
-                          <Image style={styles.teamLogo}
-                                 source={{uri: `https://cdn.footystats.org/img/${match.away_image}`}}/>
-                        </View>
-                      </CardItem>
-                    </TouchableOpacity>
-                  </Card>
-                </View>
-              )
-            })
-          )}
+                              ) : (
+                                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                                  {match.score && <Icon
+                                    name='star'
+                                    type='font-awesome'
+                                    color='#F0C238'
+                                    size={15}
+                                  />}
+                                  <Text note
+                                        style={{fontSize: 10}}>{moment.unix(match.date_unix).format("DD MMMM")}</Text>
+                                  <Text note
+                                        style={{fontSize: 12}}>{match.status === 'suspended' ? Localization.locale === 'tr-TR' ? 'ERTELENDİ' : 'SUSPENDED' : moment.unix(match.date_unix).format('HH:mm')}</Text>
+                                </View>
+                              )}
+                              <View style={{flex: 1, flexDirection: 'row'}}>
+                                <Body>
+                                  <Text style={styles.teamName}>{match.away_name}</Text>
+                                </Body>
+                                <Image style={styles.teamLogo}
+                                       source={{uri: `https://cdn.footystats.org/img/${match.away_image}`}}/>
+                              </View>
+                            </CardItem>
+                          </TouchableOpacity>
+                        </Card>
+                      </View>
+                    )
+                  }
+                })
+              )}
+            </Tab>
+            <Tab heading={'Dün'}>
+              {otherDaysMatchesReducer.data && (
+                otherDaysMatchesReducer.data.sort(compare).map((match) => {
+                  if (match.match_date === returnDay(-1)) {
+                    return (
+                      <View key={match.id}>
+                        <Card>
+                          <TouchableOpacity onPress={() => props.navigation.navigate('MatchDetail', {
+                            match: match,
+                          })}>
+                            <CardItem style={styles.matchCard}>
+                              <View style={{flex: 1, flexDirection: 'row'}}>
+                                <Image style={styles.teamLogo}
+                                       source={{uri: `https://cdn.footystats.org/img/${match.home_image}`}}/>
+                                <Body>
+                                  <Text style={styles.teamName}>{match.home_name}</Text>
+                                </Body>
+                              </View>
+                              {match.status === 'complete' ? (
+                                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                                  {match.score && <Icon
+                                    name='star'
+                                    type='font-awesome'
+                                    color='#F0C238'
+                                    size={15}
+                                  />}
+                                  <Text note
+                                        style={{fontSize: 10}}>{`${moment.unix(match.date_unix).format("DD MMMM")}`}</Text>
+                                  <Text note
+                                        style={{fontSize: 12}}>{`${match.homeGoalCount} - ${match.awayGoalCount}`}</Text>
+                                </View>
+
+                              ) : (
+                                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                                  {match.score && <Icon
+                                    name='star'
+                                    type='font-awesome'
+                                    color='#F0C238'
+                                    size={15}
+                                  />}
+                                  <Text note
+                                        style={{fontSize: 10}}>{moment.unix(match.date_unix).format("DD MMMM")}</Text>
+                                  <Text note
+                                        style={{fontSize: 12}}>{match.status === 'suspended' ? Localization.locale === 'tr-TR' ? 'ERTELENDİ' : 'SUSPENDED' : moment.unix(match.date_unix).format('HH:mm')}</Text>
+                                </View>
+                              )}
+                              <View style={{flex: 1, flexDirection: 'row'}}>
+                                <Body>
+                                  <Text style={styles.teamName}>{match.away_name}</Text>
+                                </Body>
+                                <Image style={styles.teamLogo}
+                                       source={{uri: `https://cdn.footystats.org/img/${match.away_image}`}}/>
+                              </View>
+                            </CardItem>
+                          </TouchableOpacity>
+                        </Card>
+                      </View>
+                    )
+                  }
+                })
+              )}
+            </Tab>
+            <Tab heading={'Bugün'}>
+              {todayMatchesReducer.data && (
+                todayMatchesReducer.data.sort(compare).map((match) => {
+                  return (
+                    <View key={match.id}>
+                      <Card>
+                        <TouchableOpacity onPress={() => props.navigation.navigate('MatchDetail', {
+                          match: match,
+                        })}>
+                          <CardItem style={styles.matchCard}>
+                            <View style={{flex: 1, flexDirection: 'row'}}>
+                              <Image style={styles.teamLogo}
+                                     source={{uri: `https://cdn.footystats.org/img/${match.home_image}`}}/>
+                              <Body>
+                                <Text style={styles.teamName}>{match.home_name}</Text>
+                              </Body>
+                            </View>
+                            {match.status === 'complete' ? (
+                              <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                                {match.score && <Icon
+                                  name='star'
+                                  type='font-awesome'
+                                  color='#F0C238'
+                                  size={15}
+                                />}
+                                <Text note
+                                      style={{fontSize: 10}}>{`${moment.unix(match.date_unix).format("DD MMMM")}`}</Text>
+                                <Text note
+                                      style={{fontSize: 12}}>{`${match.homeGoalCount} - ${match.awayGoalCount}`}</Text>
+                              </View>
+
+                            ) : (
+                              <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                                {match.score && <Icon
+                                  name='star'
+                                  type='font-awesome'
+                                  color='#F0C238'
+                                  size={15}
+                                />}
+                                <Text note
+                                      style={{fontSize: 10}}>{moment.unix(match.date_unix).format("DD MMMM")}</Text>
+                                <Text note
+                                      style={{fontSize: 12}}>{match.status === 'suspended' ? Localization.locale === 'tr-TR' ? 'ERTELENDİ' : 'SUSPENDED' : moment.unix(match.date_unix).format('HH:mm')}</Text>
+                              </View>
+                            )}
+                            <View style={{flex: 1, flexDirection: 'row'}}>
+                              <Body>
+                                <Text style={styles.teamName}>{match.away_name}</Text>
+                              </Body>
+                              <Image style={styles.teamLogo}
+                                     source={{uri: `https://cdn.footystats.org/img/${match.away_image}`}}/>
+                            </View>
+                          </CardItem>
+                        </TouchableOpacity>
+                      </Card>
+                    </View>
+                  )
+                })
+              )}
+            </Tab>
+            <Tab heading={'Yarın'}>
+              {otherDaysMatchesReducer.data && (
+                otherDaysMatchesReducer.data.sort(compare).map((match) => {
+                  if (match.match_date === returnDay(+1)) {
+                    return (
+                      <View key={match.id}>
+                        <Card>
+                          <TouchableOpacity onPress={() => props.navigation.navigate('MatchDetail', {
+                            match: match,
+                          })}>
+                            <CardItem style={styles.matchCard}>
+                              <View style={{flex: 1, flexDirection: 'row'}}>
+                                <Image style={styles.teamLogo}
+                                       source={{uri: `https://cdn.footystats.org/img/${match.home_image}`}}/>
+                                <Body>
+                                  <Text style={styles.teamName}>{match.home_name}</Text>
+                                </Body>
+                              </View>
+                              {match.status === 'complete' ? (
+                                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                                  {match.score && <Icon
+                                    name='star'
+                                    type='font-awesome'
+                                    color='#F0C238'
+                                    size={15}
+                                  />}
+                                  <Text note
+                                        style={{fontSize: 10}}>{`${moment.unix(match.date_unix).format("DD MMMM")}`}</Text>
+                                  <Text note
+                                        style={{fontSize: 12}}>{`${match.homeGoalCount} - ${match.awayGoalCount}`}</Text>
+                                </View>
+
+                              ) : (
+                                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                                  {match.score && <Icon
+                                    name='star'
+                                    type='font-awesome'
+                                    color='#F0C238'
+                                    size={15}
+                                  />}
+                                  <Text note
+                                        style={{fontSize: 10}}>{moment.unix(match.date_unix).format("DD MMMM")}</Text>
+                                  <Text note
+                                        style={{fontSize: 12}}>{match.status === 'suspended' ? Localization.locale === 'tr-TR' ? 'ERTELENDİ' : 'SUSPENDED' : moment.unix(match.date_unix).format('HH:mm')}</Text>
+                                </View>
+                              )}
+                              <View style={{flex: 1, flexDirection: 'row'}}>
+                                <Body>
+                                  <Text style={styles.teamName}>{match.away_name}</Text>
+                                </Body>
+                                <Image style={styles.teamLogo}
+                                       source={{uri: `https://cdn.footystats.org/img/${match.away_image}`}}/>
+                              </View>
+                            </CardItem>
+                          </TouchableOpacity>
+                        </Card>
+                      </View>
+                    )
+                  }
+                })
+              )}
+            </Tab>
+            <Tab heading={moment().add(+2, "days").format('DD MMMM')}>
+              {otherDaysMatchesReducer.data && (
+                otherDaysMatchesReducer.data.sort(compare).map((match) => {
+                  if (match.match_date === returnDay(+2)) {
+                    return (
+                      <View key={match.id}>
+                        <Card>
+                          <TouchableOpacity onPress={() => props.navigation.navigate('MatchDetail', {
+                            match: match,
+                          })}>
+                            <CardItem style={styles.matchCard}>
+                              <View style={{flex: 1, flexDirection: 'row'}}>
+                                <Image style={styles.teamLogo}
+                                       source={{uri: `https://cdn.footystats.org/img/${match.home_image}`}}/>
+                                <Body>
+                                  <Text style={styles.teamName}>{match.home_name}</Text>
+                                </Body>
+                              </View>
+                              {match.status === 'complete' ? (
+                                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                                  {match.score && <Icon
+                                    name='star'
+                                    type='font-awesome'
+                                    color='#F0C238'
+                                    size={15}
+                                  />}
+                                  <Text note
+                                        style={{fontSize: 10}}>{`${moment.unix(match.date_unix).format("DD MMMM")}`}</Text>
+                                  <Text note
+                                        style={{fontSize: 12}}>{`${match.homeGoalCount} - ${match.awayGoalCount}`}</Text>
+                                </View>
+
+                              ) : (
+                                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                                  {match.score && <Icon
+                                    name='star'
+                                    type='font-awesome'
+                                    color='#F0C238'
+                                    size={15}
+                                  />}
+                                  <Text note
+                                        style={{fontSize: 10}}>{moment.unix(match.date_unix).format("DD MMMM")}</Text>
+                                  <Text note
+                                        style={{fontSize: 12}}>{match.status === 'suspended' ? Localization.locale === 'tr-TR' ? 'ERTELENDİ' : 'SUSPENDED' : moment.unix(match.date_unix).format('HH:mm')}</Text>
+                                </View>
+                              )}
+                              <View style={{flex: 1, flexDirection: 'row'}}>
+                                <Body>
+                                  <Text style={styles.teamName}>{match.away_name}</Text>
+                                </Body>
+                                <Image style={styles.teamLogo}
+                                       source={{uri: `https://cdn.footystats.org/img/${match.away_image}`}}/>
+                              </View>
+                            </CardItem>
+                          </TouchableOpacity>
+                        </Card>
+                      </View>
+                    )
+                  }
+                })
+              )}
+            </Tab>
+          </Tabs>
         </Content>
         <AdMobBanner
           bannerSize="smartBannerPortrait"
@@ -141,10 +411,11 @@ const styles = {
 }
 
 const mapStateToProps = (state) => ({
-  todayMatchesReducer: state.todayMatchesReducer
+  todayMatchesReducer: state.todayMatchesReducer,
+  otherDaysMatchesReducer: state.otherDaysMatchesReducer
 });
 
-const mapDispatchToProps = {getTodayMatches};
+const mapDispatchToProps = {getTodayMatches, getOtherDaysMatches};
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodayMatches);

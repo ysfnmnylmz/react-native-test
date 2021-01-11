@@ -89,7 +89,7 @@ const FormTab = ({homePrematches, awayPrematches, home, away, leagueData, match}
                               style={String(preMatch.winningTeam) === String(away.id).substring(0, String(away.id).length - 4) ? styles.win : preMatch.winningTeam == "-1" ? styles.draw : styles.lost}
                               key={String(i)}>
                               <Text
-                                style={styles.textStyle}>{preMatch.winningTeam == "-1" ? Localization.locale === 'tr-TR' ? "B" : 'D' : String(preMatch.winningTeam) === String(home.id).substring(0, String(home.id).length - 4) ? Localization.locale === 'tr-TR' ? "G" : 'W' : Localization.locale === 'tr-TR' ? "M" : 'L'}</Text>
+                                style={styles.textStyle}>{preMatch.winningTeam == "-1" ? Localization.locale === 'tr-TR' ? "B" : 'D' : String(preMatch.winningTeam) === String(away.id).substring(0, String(away.id).length - 4) ? Localization.locale === 'tr-TR' ? "G" : 'W' : Localization.locale === 'tr-TR' ? "M" : 'L'}</Text>
                             </View>)
                         }
                       })}

@@ -12,7 +12,7 @@ axiosInstance.defaults.headers.common['Content-Type'] = 'application/json';
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    // UtilityFunctions.consoleFunc('REQUEST', '#FFAA00', config);
+    UtilityFunctions.consoleFunc('REQUEST', '#FFAA00', config);
     // const {token} = store.getState().loginReducer;
     // if (token !== '' && token !== null && config != null) {
     //   config.headers.Authorization = `Token ${token}`;
