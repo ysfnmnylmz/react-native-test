@@ -22,9 +22,9 @@ const TodayMatches = (props) => {
   }*/
   const returnDay = (day) => moment().add(day, "days").format('YYYY-MM-DD')
   const returnOtherMatches = async day => {
-    await props.getOtherDaysMatches(returnDay(day))
     await props.getOtherDaysMatches(returnDay(day + 1))
     await props.getOtherDaysMatches(returnDay(day + 3))
+    await props.getOtherDaysMatches(returnDay(day))
     await props.getOtherDaysMatches(returnDay(day + 4))
   }
   const compare = (a, b) => {

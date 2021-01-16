@@ -7,7 +7,6 @@ import * as Localization from "expo-localization";
 
 
 const TeamTable = ({team, league}) => {
-  console.log(team.stats)
   let headData = Localization.locale === 'tr-TR' ? ['İstatistikler', 'Toplam', 'Evinde', 'Deplasmanda']:['Statistics', 'Total', 'Home', 'Away']
   let dataTable = [
     [Localization.locale==='tr-TR' ? 'Kazandı' : 'Win', team.stats.seasonWinsNum_overall, team.stats.seasonWinsNum_home, team.stats.seasonWinsNum_away],

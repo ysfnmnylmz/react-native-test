@@ -5,7 +5,6 @@ import {getDataRequest,getDataSuccess,getDataFail} from '../../../lib/helpers'
 export const getOtherDaysMatches = (date) => async (dispatch) => {
   await dispatch(getDataRequest(GET_OTHER_DAYS_MATCHES));
   try {
-    console.log('TEST',date)
     const response = await api.get(`todays-matches/?date=${date}`);
     const payload = await response.data;
     await dispatch(getDataSuccess(GET_OTHER_DAYS_MATCHES_SUCCESS, payload,date));

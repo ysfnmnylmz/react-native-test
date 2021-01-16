@@ -6,7 +6,7 @@ import {useStore, connect} from "react-redux";
 import {getData} from '../store/actions/GetLeagues';
 import {getMatches} from '../store/actions/GetMatches';
 import {getTeams} from '../store/actions/GetTeams';
-import {Loader} from "../Components/Common";
+import {AnnouncementsAlert, Loader} from "../Components/Common";
 import {AdMobInterstitial, AdMobBanner} from "expo-ads-admob";
 import scoreboard from '../../../assets/icons/scoreboard.png'
 import * as Localization from 'expo-localization'
@@ -14,6 +14,7 @@ import * as Localization from 'expo-localization'
 const TodayDetail = (props) => {
   const [home, setHome] = useState(null)
   const [away, setAway] = useState(null)
+  const [stateError, setStateerror] = useState(false)
   const [homePrematches, setHomeprematches] = useState([])
   const [awayPrematches, setAwayprematches] = useState([])
   const [adReady, setAdready] = useState(false);
@@ -23,12 +24,16 @@ const TodayDetail = (props) => {
 
   const insterstitialAdId = 'ca-app-pub-4742367558871759/2009627266'
   const {leaguesReducer, matchesReducer, teamsReducer, announcementsReducer} = store.getState()
+  const hata =[{title:'Hata', description:'Beklenmedik bir hata oluştu.'}]
   const setTeams = (teams) => {
     teams.map((team) => {
         (match.homeID === team.id) && setHome(team);
         (match.awayID === team.id) && setAway(team);
       }
     )
+  }
+  const setError = () =>{
+    setStateerror(true)
   }
   useEffect(() => {
     AdMobInterstitial.setAdUnitID(insterstitialAdId);
@@ -57,6 +62,7 @@ const TodayDetail = (props) => {
             .then(resp => setLoading(true))
         });
     })
+    teamsReducer.error && setError()
     teamsReducer.data && setTeams(teamsReducer.data)
     matchesReducer.data && away && matchesReducer.data.map((preMatch) => {
         if (preMatch.status === 'complete') {
@@ -84,7 +90,7 @@ const TodayDetail = (props) => {
     );
     homePrematches && homePrematches.filter(item => item)
     awayPrematches && awayPrematches.filter(item => item)
-  }, [loading, teamsReducer.data, matchesReducer.data, leaguesReducer.data, away, home])
+  }, [loading, teamsReducer.data, teamsReducer.error, matchesReducer.data, leaguesReducer.data, away, home])
   if (home) {
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -151,8 +157,10 @@ const TodayDetail = (props) => {
         </Content>
       </View>
     )
-  } else {
-    return <Loader/>
+  }else{
+    return (
+       stateError ? <AnnouncementsAlert data={hata} navigate={props.navigation}/> : <Loader/>
+      )
   }
 };
 

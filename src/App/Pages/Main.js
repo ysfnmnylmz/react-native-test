@@ -26,7 +26,7 @@ const Main = (props) => {
       <Stack.Navigator>
         <Stack.Screen name='TodayMatches'
                       options={{
-                        title: <LeagueHeader data={{name_tr:Localization.locale === 'tr-TR' ? 'Günün Maçları': 'Today Matches'}}/>
+                        title: <LeagueHeader data={{name_tr:Localization.locale === 'tr-TR' ? 'Maç Programı': 'Match Schedule'}}/>
                       }}>{props =>
           <TodayMatches {...props} />}</Stack.Screen>
         <Stack.Screen name='MatchDetail'
