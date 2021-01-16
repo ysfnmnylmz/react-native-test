@@ -21,11 +21,11 @@ const TodayMatches = (props) => {
     const token =  (await Notifications.getDevicePushTokenAsync()).data
   }*/
   const returnDay = (day) => moment().add(day, "days").format('YYYY-MM-DD')
-  const returnOtherMatches= async day=> {
+  const returnOtherMatches = async day => {
     await props.getOtherDaysMatches(returnDay(day))
-    await props.getOtherDaysMatches(returnDay(day+1))
-    await props.getOtherDaysMatches(returnDay(day+3))
-    await props.getOtherDaysMatches(returnDay(day+4))
+    await props.getOtherDaysMatches(returnDay(day + 1))
+    await props.getOtherDaysMatches(returnDay(day + 3))
+    await props.getOtherDaysMatches(returnDay(day + 4))
   }
   const compare = (a, b) => {
     const bandA = a.date_unix;
@@ -52,16 +52,15 @@ const TodayMatches = (props) => {
   } else {
     return (
       <View style={{flex: 1, alignItems: 'stretch'}}>
-        <Content
-          contentContainerStyle={{justifyContent: 'center'}}>
-          <Tabs
-            initialPage={2}
-            tabBarPosition={'top'}
-            locked={false}
-            tabContainerStyle={{height: 30}}
-            tabBarUnderlineStyle={{height: 1}}
-            renderTabBar={() => <ScrollableTab/>}>
-            <Tab heading={moment().add(-2, "days").format('DD MMMM')}>
+        <Tabs
+          initialPage={2}
+          tabBarPosition={'top'}
+          locked={false}
+          tabContainerStyle={{height: 30}}
+          tabBarUnderlineStyle={{height: 1}}
+          renderTabBar={() => <ScrollableTab/>}>
+          <Tab heading={moment().add(-2, "days").format('DD MMMM')}>
+            <Content contentContainerStyle={{justifyContent: 'center'}}>
               {otherDaysMatchesReducer.data && (
                 otherDaysMatchesReducer.data.sort(compare).map((match) => {
                   if (match.match_date === returnDay(-2)) {
@@ -122,8 +121,10 @@ const TodayMatches = (props) => {
                   }
                 })
               )}
-            </Tab>
-            <Tab heading={'Dün'}>
+            </Content>
+          </Tab>
+          <Tab heading={'Dün'}>
+            <Content contentContainerStyle={{justifyContent: 'center'}}>
               {otherDaysMatchesReducer.data && (
                 otherDaysMatchesReducer.data.sort(compare).map((match) => {
                   if (match.match_date === returnDay(-1)) {
@@ -184,8 +185,10 @@ const TodayMatches = (props) => {
                   }
                 })
               )}
-            </Tab>
-            <Tab heading={'Bugün'}>
+            </Content>
+          </Tab>
+          <Tab heading={'Bugün'}>
+            <Content contentContainerStyle={{justifyContent: 'center'}}>
               {todayMatchesReducer.data && (
                 todayMatchesReducer.data.sort(compare).map((match) => {
                   return (
@@ -244,8 +247,10 @@ const TodayMatches = (props) => {
                   )
                 })
               )}
-            </Tab>
-            <Tab heading={'Yarın'}>
+            </Content>
+          </Tab>
+          <Tab heading={'Yarın'}>
+            <Content contentContainerStyle={{justifyContent: 'center'}}>
               {otherDaysMatchesReducer.data && (
                 otherDaysMatchesReducer.data.sort(compare).map((match) => {
                   if (match.match_date === returnDay(+1)) {
@@ -306,8 +311,10 @@ const TodayMatches = (props) => {
                   }
                 })
               )}
-            </Tab>
-            <Tab heading={moment().add(+2, "days").format('DD MMMM')}>
+            </Content>
+          </Tab>
+          <Tab heading={moment().add(+2, "days").format('DD MMMM')}>
+            <Content contentContainerStyle={{justifyContent: 'center'}}>
               {otherDaysMatchesReducer.data && (
                 otherDaysMatchesReducer.data.sort(compare).map((match) => {
                   if (match.match_date === returnDay(+2)) {
@@ -368,9 +375,9 @@ const TodayMatches = (props) => {
                   }
                 })
               )}
-            </Tab>
-          </Tabs>
-        </Content>
+            </Content>
+          </Tab>
+        </Tabs>
         <AdMobBanner
           bannerSize="smartBannerPortrait"
           adUnitID={bannerAdd}
