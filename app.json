@@ -7,7 +7,7 @@
       "android",
       "web"
     ],
-    "version": "1.4",
+    "version": "1.5",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
     "notification": {
@@ -31,7 +31,7 @@
     "android": {
       "package": "com.ysfnmnylmz.soccerstatistics",
       "googleServicesFile": "./google-services.json",
-      "versionCode": 9,
+      "versionCode": 10,
       "permissions": [],
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-4742367558871759~2201198950"
