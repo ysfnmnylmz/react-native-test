@@ -35,18 +35,21 @@ const TodayDetail = (props) => {
   const setError = () =>{
     setStateerror(true)
   }
-  useEffect(() => {
+  const _fetchDatas = async (matchData) =>{
+    await props.getData(matchData.competition_id)
+    await props.getTeams(matchData.homeID, matchData.awayID)
+    await props.getMatches(matchData.competition_id)
+  }
+  const _fetchAds = async ()=>{
     AdMobInterstitial.setAdUnitID(insterstitialAdId);
     AdMobInterstitial.requestAdAsync({servePersonalizedAds: true});
     const ready = AdMobInterstitial.getIsReadyAsync();
     AdMobInterstitial.addEventListener('interstitialDidLoad',
       () => AdMobInterstitial.showAdAsync()
     );
-
     AdMobInterstitial.addEventListener('interstitialDidFailToLoad',
       () => setAdready(false)
     );
-
     AdMobInterstitial.addEventListener('interstitialDidOpen',
       () => console.log('did open'))
     AdMobInterstitial.addEventListener('interstitialDidClose',
@@ -55,13 +58,10 @@ const TodayDetail = (props) => {
     AdMobInterstitial.addEventListener('interstitialWillLeaveApplication',
       () => console.log('interstitialWillLeaveApplication')
     );
-    loading || props.getData(match.competition_id).then(response => {
-      props.getTeams(match.competition_id)
-        .then(response => {
-          props.getMatches(match.competition_id)
-            .then(resp => setLoading(true))
-        });
-    })
+  }
+  useEffect(() => {
+    _fetchAds()
+    loading || _fetchDatas(match).then(() => setLoading(true))
     teamsReducer.error && setError()
     teamsReducer.data && setTeams(teamsReducer.data)
     matchesReducer.data && away && matchesReducer.data.map((preMatch) => {
