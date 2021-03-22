@@ -8,6 +8,7 @@ import {LeagueHeader} from '../Components/Common';
 
 import {getData, getMatches, getTeams} from '../store/actions'
 import {getAnnouncements} from "../store/actions/GetAnnouncements";
+import {getAppSettings} from "../store/actions/GetAppSettings"
 import TodayMatches from "./TodayMatches";
 import TodayDetail from "./TodayDetail";
 import Reward from "../Components/Reward";
@@ -49,9 +50,10 @@ const mapStateToProps = (state) => ({
   matchesReducer: state.matches,
   teamsReducer: state.teams,
   announcementsReducer: state.announcementsReducer,
+  appSettingsReducer: state.appSettingsReducer
 });
 
-const mapDispatchToProps = {getData, getMatches, getTeams, getAnnouncements};
+const mapDispatchToProps = {getData, getMatches, getTeams, getAnnouncements, getAppSettings};
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

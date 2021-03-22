@@ -23,8 +23,8 @@ const TodayDetail = (props) => {
   const store = useStore();
 
   const insterstitialAdId = 'ca-app-pub-4742367558871759/2009627266'
-  const {leaguesReducer, matchesReducer, teamsReducer, announcementsReducer} = store.getState()
-  const hata =[{title:'Hata', description:'Beklenmedik bir hata oluştu.'}]
+  const {leaguesReducer, matchesReducer, teamsReducer, announcementsReducer, appSettingsReducer} = store.getState()
+  const hata = [{title: 'Hata', description: 'Beklenmedik bir hata oluştu.'}]
   const setTeams = (teams) => {
     teams.map((team) => {
         (match.homeID === team.id) && setHome(team);
@@ -32,15 +32,15 @@ const TodayDetail = (props) => {
       }
     )
   }
-  const setError = () =>{
+  const setError = () => {
     setStateerror(true)
   }
-  const _fetchDatas = async (matchData) =>{
+  const _fetchDatas = async (matchData) => {
     await props.getData(matchData.competition_id)
     await props.getTeams(matchData.homeID, matchData.awayID)
     await props.getMatches(matchData.competition_id)
   }
-  const _fetchAds = async ()=>{
+  const _fetchAds = async () => {
     AdMobInterstitial.setAdUnitID(insterstitialAdId);
     AdMobInterstitial.requestAdAsync({servePersonalizedAds: true});
     const ready = AdMobInterstitial.getIsReadyAsync();
@@ -95,8 +95,9 @@ const TodayDetail = (props) => {
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
         <Content contentContainerStyle={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-          <Tabs locked={false} tabContainerStyle={{height: 30}} tabBarUnderlineStyle={{height: 2}}
-                renderTabBar={() => <ScrollableTab/>}>
+          <Tabs
+            locked={false} tabContainerStyle={{height: 30}} tabBarUnderlineStyle={{height: 2}}
+            renderTabBar={() => <ScrollableTab/>}>
             <Tab heading={match ? match.home_name : 'Evsahibi Takım'}>
               <TeamTable team={home && home} league={leaguesReducer[0] && leaguesReducer[0]}/>
             </Tab>
@@ -105,22 +106,23 @@ const TodayDetail = (props) => {
             </Tab>
           </Tabs>
           {match.score && (
-              <View style={{
-                borderBottomLeftRadius: 50,
-                borderTopLeftRadius: 50,
-                position: 'absolute',
-                top: '15%',
-                alignSelf: 'flex-end',
-                height: 75,
-                width: 80,
-                borderWidth:1,
-                borderColor:'#333',
-                backgroundColor: 'rgba(0,0,0,0)',
-              }}>
-                <TouchableOpacity onPress={() => props.navigation.navigate('Reward', {
+            <View style={{
+              borderBottomLeftRadius: 50,
+              borderTopLeftRadius: 50,
+              position: 'absolute',
+              top: '15%',
+              alignSelf: 'flex-end',
+              height: 75,
+              width: 80,
+              borderWidth: 1,
+              borderColor: '#333',
+              backgroundColor: 'rgba(0,0,0,0)',
+            }}>
+              <TouchableOpacity
+                onPress={() => props.navigation.navigate('Reward', {
                   match: match,
                 })}
-                  style={{
+                style={{
                   borderRadius: 50,
                   position: 'absolute',
                   top: 0,
@@ -130,11 +132,13 @@ const TodayDetail = (props) => {
                   left: 0,
                   backgroundColor: 'rgba(255,255,255,1)'
                 }}
-                >
-                  <Image source={scoreboard} style={{padding:1, borderWidth:1,
-                    borderColor:'#333',borderRadius:100,width:73, height:73}}/>
-                </TouchableOpacity>
-              </View>
+              >
+                <Image source={{uri: appSettingsReducer.data[0].score_prediction}} style={{
+                  padding: 1, borderWidth: 1,
+                  borderColor: '#333', borderRadius: 100, width: 73, height: 73
+                }}/>
+              </TouchableOpacity>
+            </View>
           )}
         </Content>
         <Content contentContainerStyle={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -143,12 +147,14 @@ const TodayDetail = (props) => {
               <PreviousResults id={match.id} home={home && home} away={away && away} match={match}/>
             </Tab>
             <Tab heading={Localization.locale === 'tr-TR' ? 'Özet İstatistikler' : 'Summary Stats'}>
-              <SummaryStats home={home && home} away={away && away}
-                            leagueData={leaguesReducer[0] && leaguesReducer[0]}/>
+              <SummaryStats
+                home={home && home} away={away && away}
+                leagueData={leaguesReducer[0] && leaguesReducer[0]}/>
             </Tab>
             <Tab heading="Form">
-              <FormTab home={home && home} match={match} away={away && away} homePrematches={homePrematches}
-                       awayPrematches={awayPrematches} leagueData={leaguesReducer[0] && leaguesReducer[0]}/>
+              <FormTab
+                home={home && home} match={match} away={away && away} homePrematches={homePrematches}
+                awayPrematches={awayPrematches} leagueData={leaguesReducer[0] && leaguesReducer[0]}/>
             </Tab>
             <Tab heading={Localization.locale === 'tr-TR' ? 'Maç Beklentisi' : 'Match Potential'}>
               <MatchPotential match={match}/>
@@ -157,10 +163,10 @@ const TodayDetail = (props) => {
         </Content>
       </View>
     )
-  }else{
+  } else {
     return (
-       stateError ? <AnnouncementsAlert data={hata} navigate={props.navigation}/> : <Loader/>
-      )
+      stateError ? <AnnouncementsAlert data={hata} navigate={props.navigation}/> : <Loader/>
+    )
   }
 };
 

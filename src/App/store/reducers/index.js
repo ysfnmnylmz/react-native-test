@@ -7,6 +7,7 @@ import announcementsReducer from "./announcements";
 import countryListReducer from './countrylist';
 import todayMatchesReducer from './todaymatches';
 import otherDaysMatchesReducer from './otherdaysmatches';
+import appSettingsReducer from './appsettings';
 
 export default combineReducers({
     leaguesReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
     announcementsReducer,
     countryListReducer,
     todayMatchesReducer,
-    otherDaysMatchesReducer
+    otherDaysMatchesReducer,
+    appSettingsReducer
 });

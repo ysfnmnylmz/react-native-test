@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {Image, TouchableOpacity, View} from 'react-native';
 import {connect, useStore} from 'react-redux';
+import * as Notifications from 'expo-notifications'
 import {Body, Card, CardItem, Content, ScrollableTab, Tab, Tabs, Text} from 'native-base';
 import {getTodayMatches} from "../store/actions/GetTodayMatches";
 import {getOtherDaysMatches} from "../store/actions/OtherDaysMatches";
+import {getAppSettings} from "../store/actions/GetAppSettings";
 import {Loader} from "../Components/Common";
 import {AdMobBanner} from "expo-ads-admob";
 import moment from "moment";
@@ -16,10 +18,11 @@ const TodayMatches = (props) => {
   const [loading, setLoading] = useState(false)
   const store = useStore();
   const bannerAdd = 'ca-app-pub-4742367558871759/4679018010'
-  const {todayMatchesReducer, otherDaysMatchesReducer} = store.getState()
-  /*const getToken= async ()=>{
+  const {todayMatchesReducer, otherDaysMatchesReducer, appSettingsReducer} = store.getState()
+  const getToken= async ()=>{
     const token =  (await Notifications.getDevicePushTokenAsync()).data
-  }*/
+    console.log('test', token)
+  }
   const returnDay = (day) => moment().add(day, "days").format('YYYY-MM-DD')
   const returnOtherMatches = async day => {
     await props.getOtherDaysMatches(returnDay(day + 1))
@@ -40,6 +43,8 @@ const TodayMatches = (props) => {
     return comparison;
   }
   useEffect(() => {
+    getToken()
+    appSettingsReducer.data?.length !==1 &&props.getAppSettings()
     todayMatchesReducer.data || props.getTodayMatches()
       .then(response => setLoading(true))
     returnOtherMatches(-2)
@@ -419,10 +424,11 @@ const styles = {
 
 const mapStateToProps = (state) => ({
   todayMatchesReducer: state.todayMatchesReducer,
-  otherDaysMatchesReducer: state.otherDaysMatchesReducer
+  otherDaysMatchesReducer: state.otherDaysMatchesReducer,
+  appSettingsReducer: state.appSettingsReducer
 });
 
-const mapDispatchToProps = {getTodayMatches, getOtherDaysMatches};
+const mapDispatchToProps = {getTodayMatches, getOtherDaysMatches,getAppSettings};
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodayMatches);
