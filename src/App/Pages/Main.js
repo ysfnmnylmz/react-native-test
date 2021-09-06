@@ -14,6 +14,7 @@ import TodayDetail from "./TodayDetail";
 import Reward from "../Components/Reward";
 
 import * as Localization from 'expo-localization';
+import MatchList from "../Components/MatchList";
 
 const Stack = createStackNavigator();
 
@@ -25,6 +26,9 @@ const Main = (props) => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+          <Stack.Screen name='Main'
+                        options={{title: <LeagueHeader data={{name_tr: 'Main'}}/>}}>{props =>
+              <MatchList {...props} />}</Stack.Screen>
         <Stack.Screen name='TodayMatches'
                       options={{
                         title: <LeagueHeader data={{name_tr:Localization.locale === 'tr-TR' ? 'Maç Programı': 'Match Schedule'}}/>

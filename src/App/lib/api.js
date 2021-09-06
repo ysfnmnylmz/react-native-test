@@ -1,7 +1,7 @@
 import axios from 'axios';
 import UtilityFunctions from './UtilityFunctions';
 
-const BASE_URL = 'http://macmatik.net/api/';
+const BASE_URL = 'http://192.168.43.194:7362/api/';
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -24,15 +24,15 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    // UtilityFunctions.consoleFunc('RESPONSE', '#59FF00 ', response);
+    UtilityFunctions.consoleFunc('RESPONSE', '#59FF00 ', response);
     return response;
   },
   (error) => {
-    // UtilityFunctions.consoleFunc(
-    //   'RESPONSE_ERROR',
-    //   '#E50808',
-    //   error.response ? error.response : error,
-    // );
+    UtilityFunctions.consoleFunc(
+      'RESPONSE_ERROR',
+      '#E50808',
+      error.response ? error.response : error,
+    );
     return Promise.reject(error);
   },
 );
