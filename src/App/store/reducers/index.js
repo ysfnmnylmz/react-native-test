@@ -8,6 +8,7 @@ import countryListReducer from './countrylist';
 import todayMatchesReducer from './todaymatches';
 import otherDaysMatchesReducer from './otherdaysmatches';
 import appSettingsReducer from './appsettings';
+import betTypeReducer from './bettypes';
 
 export default combineReducers({
     leaguesReducer,
@@ -18,5 +19,6 @@ export default combineReducers({
     countryListReducer,
     todayMatchesReducer,
     otherDaysMatchesReducer,
-    appSettingsReducer
+    appSettingsReducer,
+    betTypeReducer
 });

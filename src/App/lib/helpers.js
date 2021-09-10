@@ -12,3 +12,15 @@ export function hexToRgb(hex) {
         b: parseInt(result[3], 16)
     } : null;
 }
+export const percent = (p) => {
+    if (p.length > 3) {
+        let n = Number(p.substring(0, 3))
+        return n / 100
+    } else if (p.length === 3) {
+        let n = Number(p.substring(0, 2))
+        return n / 100
+    } else {
+        let n = Number(p.substring(0, 1))
+        return n / 100
+    }
+}

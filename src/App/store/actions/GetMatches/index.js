@@ -4,7 +4,6 @@ import api from '../../../lib/api';
 
 export const getMatches = (league_id) => async (dispatch) => {
   await dispatch(getDataRequest(GET_MATCHES));
-  console.log('getMatches')
   try {
     const response = await api.get(`matches/`);
     const payload = await response.data;
