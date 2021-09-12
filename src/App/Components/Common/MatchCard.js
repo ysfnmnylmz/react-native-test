@@ -7,7 +7,6 @@ const MatchCard = ({match, index}) => {
     const bannerAdd = 'ca-app-pub-4742367558871759/4679018010'
     return (
         <Card>
-            {index === 7 && <AdMobBanner bannerSize="smartBannerPortrait" adUnitID={bannerAdd} servePersonalizedAds={true}/>}
             <CardItem style={[styles.card, {borderColor: `${match.bet_type.color}`}]}>
                 <View style={[styles.column]}>
                     <Image style={[styles.image]}

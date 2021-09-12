@@ -31,7 +31,7 @@
     "android": {
       "package": "com.ysfnmnylmz.soccerstatistics",
       "googleServicesFile": "./google-services.json",
-      "versionCode": 12,
+      "versionCode": 13,
       "permissions": [],
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-4742367558871759~2201198950"

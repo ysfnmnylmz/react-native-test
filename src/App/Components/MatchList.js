@@ -38,9 +38,9 @@ const MatchList = (props) => {
     }
     const filterHandler = async (t) => {
         let newMatch;
-        if(t !== 'All') {
+        if (t !== 'All') {
             newMatch = await matchesReducer.initial.filter((match) => match.bet_type.name === t)
-        }else{
+        } else {
             newMatch = await matchesReducer.initial
         }
         await _fetchAds()
@@ -50,27 +50,26 @@ const MatchList = (props) => {
         await props.getMatches()
         await props.getBetTypes()
         await setState(true)
-        await _fetchAds()
+    }
+    const diff = async (max, bol) => {
+        const k = max % bol
+        return k === 0
     }
     useEffect(() => {
         matchesReducer.data || _fetchDatas()
     }, [])
-    /*useEffect(()=>{
-        _fetchAds()
-    })*/
     if (state) {
         return (
             <View>
-                <ScrollView horizontal={true} style={{flexDirection: 'row', paddingVertical: 5, height:60}}>
+                <View>
+                    <AdMobBanner bannerSize="smartBannerPortrait" adUnitID={bannerAdd}
+                                 servePersonalizedAds={true}/>
+                </View>
+                <ScrollView horizontal={true} style={{flexDirection: 'row', paddingVertical: 5, height: 60}}>
                     {betTypeReducer.data.map((x, i) => <Button key={String(i)} title={x.name}
                                                                onPress={() => filterHandler(x.name)}/>)}
                 </ScrollView>
-                <ScrollView style={{marginBottom: 50}}>
-                    <AdMobBanner
-                        bannerSize="smartBannerPortrait"
-                        adUnitID={bannerAdd}
-                        servePersonalizedAds={true}
-                    />
+                <ScrollView style={{marginBottom: 120}}>
                     {matchesReducer.data.map((m, i) => <MatchCard match={m} key={String(i)} index={i}/>)}
                 </ScrollView>
             </View>
