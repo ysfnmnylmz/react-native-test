@@ -66,11 +66,11 @@ const MatchList = (props) => {
                                  servePersonalizedAds={true}/>
                 </View>
                 <ScrollView horizontal={true} style={{flexDirection: 'row', paddingVertical: 5, height: 60}}>
-                    {betTypeReducer.data.map((x, i) => <Button key={String(i)} title={x.name}
+                    {betTypeReducer.data && betTypeReducer.data.map((x, i) => <Button key={String(i)} title={x.name}
                                                                onPress={() => filterHandler(x.name)}/>)}
                 </ScrollView>
-                <ScrollView style={{marginBottom: 120}}>
-                    {matchesReducer.data.map((m, i) => <MatchCard match={m} key={String(i)} index={i}/>)}
+                <ScrollView style={{marginBottom: 150}}>
+                    {matchesReducer.data && matchesReducer.data.map((m, i) => <MatchCard match={m} key={String(i)} index={i}/>)}
                 </ScrollView>
             </View>
         );

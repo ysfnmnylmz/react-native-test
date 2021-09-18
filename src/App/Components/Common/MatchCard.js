@@ -7,7 +7,7 @@ const MatchCard = ({match, index}) => {
     const bannerAdd = 'ca-app-pub-4742367558871759/4679018010'
     return (
         <Card>
-            <CardItem style={[styles.card, {borderColor: `${match.bet_type.color}`}]}>
+            <CardItem style={[styles.card, {borderColor: `${match.bet_type.color ?match.bet_type.color: 'black'}`}]}>
                 <View style={[styles.column]}>
                     <Image style={[styles.image]}
                            source={{uri: `http://85.95.240.192/media/${match.bet_type.slug}.png`}}/>
@@ -24,16 +24,19 @@ const MatchCard = ({match, index}) => {
                         </View>
                         <View style={[styles.row]}>
                             <Body>
-                                <Text style={[styles.matchDetail.stat, {fontWeight: 'bold', color: `${match.bet_type.color}`}]}>{match.bet_type.slug !== 'offside' ? match.percent : '--'}</Text>
+                                <Text style={[styles.matchDetail.stat, {fontWeight: 'bold'}]}>{match.bet_type.slug !== 'offside' ? match.bet_type.percent_title : '--'}</Text>
+                                <Text style={[styles.matchDetail.stat, {fontWeight: 'bold'}, {color: `${match.bet_type.color ?match.bet_type.color: 'red'}`}]}>{match.bet_type.slug !== 'offside' ? match.percent : '--'}</Text>
                             </Body>
                         </View>
                         <View style={[styles.row]}>
                             <Body>
-                                <Text style={[styles.matchDetail.stat, {fontWeight: 'bold', color: `${match.bet_type.color}`}]}>{match.bet_type.slug !== 'offside' ? (match.stat ? match.stat : '--') : match.percent}</Text>
+                                <Text style={[styles.matchDetail.stat, {fontWeight: 'bold'}]}>{match.bet_type.slug !== 'offside' ? (match.stat ? match.bet_type.display_name : '--') : match.bet_type.percent_title}</Text>
+                                <Text style={[styles.matchDetail.stat, {fontWeight: 'bold'}, {color: `${match.bet_type.color ?match.bet_type.color: 'red'}`}]}>{match.bet_type.slug !== 'offside' ? (match.stat ? match.stat : '--') : match.percent}</Text>
                             </Body>
                         </View>
                         <View style={[styles.row]}>
                             <Body>
+                                <Text style={[styles.matchDetail.stat, {fontWeight: 'bold'}]}>{'Match Date'}</Text>
                                 <Text style={[styles.matchDetail.stat]}>{match.formatted_date ? match.formatted_date : '--'}</Text>
                             </Body>
                         </View>
